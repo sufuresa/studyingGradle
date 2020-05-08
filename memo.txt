@@ -690,3 +690,8 @@ And it's also a feature of the DSL or domain specific language, that's gradle pr
 
 
 <<< 25. Introduction to 'dependsOn' >>>
+dependsOn キーワードを使いtaskの順番を定義することが可能。
+異なる場所(task)で同じtaskをdependsOnで指定すると、１度しか呼ばれない。２回目の方は呼ばれない。
+
+
+<<< 26. Filtering tasks with 'dependsOn' >>>
