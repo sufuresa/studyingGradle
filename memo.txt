@@ -618,4 +618,75 @@ We also can see the actual actions that have been performed.
 Just notice the order here, you can see the doFirst action was done first followed by the doLast.
 
 <<< 24. Configuring Tasks >>>
+Å`ó™Å`
+Every time we called doFirst, the closure we pass in is always guranteed to be the first closure that actually gets executed.
+And when we called doLast, that closure is guranteed to be the last action to be executed in the tasks actions list.
+-------------------
+task hello{
+	doFirst{
+		logger.info "My name is: $name and thsi is my 1st defined action." //3
+	}
+	doLast{
+		logger.info "My name is: $name and thsi is my 2nd defined action." //4
+	}
+}
+hello.doFirst{
+	logger.info "My name is: $name and thsi is my ?th defined action." // 2
+}
+hello.doLast{
+	logger.info "My name is: $name and thsi is my 3rd defined action." // 5
+}
+hello.doLast{
+	logger.info "My name is: $name and thsi is my 4th defined action." // 6
+}
+hello.doFirst{
+	logger.info "My name is: $name and thsi is my 5th defined action." // 1
+}
 
+My name is: hello and thsi is my 5th defined action.
+My name is: hello and thsi is my ?th defined action.
+My name is: hello and thsi is my 1st defined action.
+My name is: hello and thsi is my 2nd defined action.
+My name is: hello and thsi is my 3rd defined action.
+My name is: hello and thsi is my 4th defined action.
+-------------------
+
+Something to take note as well is that the return type of the doFirst and doLast method is that of "Task" (object).
+So each time we call these methods they actually return the "Task" that the method is being invoked on.
+
+So how does that work?
+Well let's start with a new example.
+It's pretty much exact the same as the original but this time what I'm going to do is each time I call
+doFirst and doLast method, I'm actually be going to chain another doLast or doFirst method onto using the dot notation.
+
+---------------------
+task hello2{
+}
+hello2.doFirst{
+	logger.info "My name is: $name and thsi is my 1st defined action."
+}.doLast{
+	logger.info "My name is: $name and thsi is my 2nd defined action."
+}.doFirst{
+	logger.info "My name is: $name and thsi is my ?th defined action."
+}.doLast{
+	logger.info "My name is: $name and thsi is my 3rd defined action."
+}.doLast{
+	logger.info "My name is: $name and thsi is my 4th defined action."
+}.doFirst{
+	logger.info "My name is: $name and thsi is my 5th defined action."
+}
+My name is: hello2 and thsi is my 5th defined action.
+My name is: hello2 and thsi is my ?th defined action.
+My name is: hello2 and thsi is my 1st defined action.
+My name is: hello2 and thsi is my 2nd defined action.
+My name is: hello2 and thsi is my 3rd defined action.
+My name is: hello2 and thsi is my 4th defined action.
+------------------------
+I can add as many actions as I wish so hello2 is now a rewritten version of the hello task and you'll
+see I'm chaining all that doFirst and doLast methods again.
+You'll notice the outputs identical because basically they're in exactly the same thing.
+This can help make our code more consise and readable.
+And it's also a feature of the DSL or domain specific language, that's gradle procvides us.
+
+
+<<< 25. Introduction to 'dependsOn' >>>
