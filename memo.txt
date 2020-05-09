@@ -745,5 +745,10 @@ and print results to the console.
 And as you can see from the output that's exactly what happens.
 So now we've proven that our closure works with the findAll method.
 
+Å`ó™Å`
 
+<<< 27. Using 'dependsOn' in conditional logic >>>
+OK
 
+<<< 28. The task Dependency Graph >>>
+OK
