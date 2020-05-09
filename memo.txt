@@ -729,6 +729,21 @@ Remenber the "Project" (Object) is also implied so without actually physically h
 I'm just showing it here as part of the example.
 So it's my requirement to basic just create dependency on "doStep2".
 So I need to scan through all the tasks looking for other tasks with the name of "doStep2".
+So the closure provides us access to the task and we can assign that tha name task and once we have
+that we can query the "name" property on the Task(object) and then we can see if that name stats with in this case "doStep2".
 
-`3:18`
+-------------------
+logger.info ">>> ${ project.tasks.findAll { task -> task.name.startsWith('doStep2')  }  }"
+>>>>>>>>>> [task ':doStep2']
+
+logger.info ">>> ${ project.tasks.findAll { task -> task.name.startsWith('do')  }  }"
+>>>>>>>>>> [task ':doFinished', task ':doSomethingInTheMiddle', task ':doStartProcess', task ':doStep2']
+-------------------
+
+So what happen here, the method findAll will returns all the tasks which starts with the name "doStep2"
+and print results to the console.
+And as you can see from the output that's exactly what happens.
+So now we've proven that our closure works with the findAll method.
+
+
 
