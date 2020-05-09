@@ -651,7 +651,7 @@ My name is: hello and thsi is my 3rd defined action.
 My name is: hello and thsi is my 4th defined action.
 -------------------
 
-Something to take note as well is that the return type of the doFirst and doLast method is that of "Task" (object).
+Something to take note as well, is that the return type of the doFirst and doLast method is that of "Task" (object).
 So each time we call these methods they actually return the "Task" that the method is being invoked on.
 
 So how does that work?
@@ -686,7 +686,7 @@ I can add as many actions as I wish so hello2 is now a rewritten version of the 
 see I'm chaining all that doFirst and doLast methods again.
 You'll notice the outputs identical because basically they're in exactly the same thing.
 This can help make our code more consise and readable.
-And it's also a feature of the DSL or domain specific language, that's gradle procvides us.
+And it's also a feature of the DSL or domain specific language, that's gradle provides us.
 
 
 <<< 25. Introduction to 'dependsOn' >>>
@@ -695,3 +695,40 @@ dependsOn ƒL[ƒ[ƒh‚ğg‚¢task‚Ì‡”Ô‚ğ’è‹`‚·‚é‚±‚Æ‚ª‰Â”\B
 
 
 <<< 26. Filtering tasks with 'dependsOn' >>>
+`—ª`
+...We don't have to use just the hard coded name of the task.
+We can also use closure and that's what I'm going to look at in this tutorial.
+When evaluating the closure has passed the task whose dependencies are being caluculated.
+Now the closure should return a single task or a collection of task object which then treat it as the dependencies of the task.
+`—ª`
+Just keep in mind that the result of the closure needs to be either a single task object or a collection of task objects
+otherwise we'll get a runtime exception.
+So how do we query the tasks that are held in our project?
+Well there's a property on the project called "Tasks".
+On a "Task" property, there is a type "TaskContainer".
+Now the TaskContainer Interface contains a whole bunch of convenient methods for us eithier for
+creating or for searching the tasks held by our project.
+Now remember these tasks are specific for this particular project.
+Now by searching the API documentation we can see that our TaskContainer Interface actually inherits
+from a whole bunch of other interfaces.
+And one of those interfaces is "NamedDomainObjectSet" and you'll find there a method called "findAll".
+...it returns a collection of objects in this collection that meets the given closure specification.
+So in other words we can provide a closure that acts like a filter and it will filter the tasks depending
+upon the code we provide in that closure ant return as a set.
+Now it's a unique set of objects.
+This is ideal for us because our dependency needs either one or a collection of tasks.
+Now you could always remenber that the public methods and property exposed by the various domain objects
+in gradle we have access to.
+So it's perfectly valid for us to use the "findAll" method. 
+Now to get access to it, we can fully qualified path using the dot notation so it's like 
+"project.tasks.findAll" and then we just need to use the curly braces to proveide the closure itself.
+-------------------
+logger.info ">>> ${project.tasks.findAll{} }"
+-------------------
+Remenber the "Project" (Object) is also implied so without actually physically have to right "project" each time.
+I'm just showing it here as part of the example.
+So it's my requirement to basic just create dependency on "doStep2".
+So I need to scan through all the tasks looking for other tasks with the name of "doStep2".
+
+`3:18`
+
