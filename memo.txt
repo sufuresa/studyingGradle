@@ -751,4 +751,13 @@ So now we've proven that our closure works with the findAll method.
 OK
 
 <<< 28. The task Dependency Graph >>>
-OK
+Gradle builds are directed acyclic graph(DAG —LŒü”ñ„‰ñƒOƒ‰ƒt) for the task that we have defined
+and set up during the configuration phase of the build lifecycle, by the time we get to the execution phase
+of the build life cycle.
+
+<<< 29. How to 'Hook' into the Task Dependency Graph >>>
+what's the advantage of having access to the task Graph ?
+what's the point in knowing the task and having access to them during the build process?
+well there may be times when you want to base on conditional logic ant that conditional logic may be
+dependent on a task existing in your build process or not.
+
