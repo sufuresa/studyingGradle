@@ -761,3 +761,14 @@ what's the point in knowing the task and having access to them during the build 
 well there may be times when you want to base on conditional logic ant that conditional logic may be
 dependent on a task existing in your build process or not.
 
+<<< 30. Introduction to Plugins >>>
+この後のチュートリアルでjava , java-library ,二つのcore plugin について説明する。
+Syntax for setting up plugins is just to use the word "pligins" followed by an open and close curly brace.
+
+plugins {
+	id 'java'
+}
+
+<<< 31. Applying 'Plugins' >>>
+
+次のチュートリアルで実例を見ながら理解することにする。。
