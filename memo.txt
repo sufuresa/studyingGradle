@@ -772,3 +772,19 @@ plugins {
 <<< 31. Applying 'Plugins' >>>
 
 次のチュートリアルで実例を見ながら理解することにする。。
+
+<<< 32. Our 1st Java program >>>
+ok
+
+<<< 33. Starting to use Gradle with Java >>>
+ok
+
+<<< 34. 3rd Part Dependencies >>>
+～略～
+I delegate out to an Apache Commons class to do that for us and that's one of the reasons we're seeing so many red markers here.
+Now the red markers represent arrows Java and Eclipse tried to compile our application can't find one or two other dependencies it needs to run.
+And that's what we are start looking at this tutorial how can we get gradle to include and manage our dependencies for us.
+So if a gradle to do this for us it needs a way of actuall getting hold of the artifact or jar files it needs to compile against.
+And there is a mechanism for doing that.
+
+--- 1:07 ---
