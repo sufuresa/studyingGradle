@@ -784,7 +784,108 @@ ok
 I delegate out to an Apache Commons class to do that for us and that's one of the reasons we're seeing so many red markers here.
 Now the red markers represent arrows Java and Eclipse tried to compile our application can't find one or two other dependencies it needs to run.
 And that's what we are start looking at this tutorial how can we get gradle to include and manage our dependencies for us.
-So if a gradle to do this for us it needs a way of actuall getting hold of the artifact or jar files it needs to compile against.
+So if a gradle to do this for us it needs a way of actually getting hold of the artifact or jar files it needs to compile against.
 And there is a mechanism for doing that.
+And it's called a repository.
+If you've used the build tool in the past such as maven, this consept shouldn't be new to you.
+But if it is, basically, repository is a bunch of servers in the Internet somewhere the hold or chache all the artifacts you need to build 
+your Java applications from and one of the popular ones to use is maven central and I'll be using that in this tutorial.
 
---- 1:07 ---
+Å`ó™Å`
+
+So how do we get access to a repository?
+We include the repositories block and basic that's the repositories word followed by an open and close curly brace.
+But something special carries on here.
+Because within the curly braces that actually represents a clusure..
+And it runs a different context to the code that's outside of it.
+
+So before the repositories block of code, are delegate object is that of project.
+Once we go within the curly braces within the "repositories" the delegate object changes.
+So in other words, we have a different context.
+Now within the repositories context, we have access to a whole bunch of different methods.
+And one of those methods is "mavenCentral".
+So to get access to mavenCentral, readers use a method on the delegate object called mavenCentral followed by open and close parentheses.
+So in fact we're actually calling a method here.
+So this is exactly the same as saying delegate object dot mavenCentral because the reality is, we're
+actually calling the mavenCentral method on the delegate object itself.
+---ÉCÉÅÅ[ÉW(â∫ãLÇÃdelegateÇÕó·ÅBâÀãÛÇÃobjectÅB)
+delegate.mavenCentral()
+---
+So what is the delegate object ?
+So let's head over to the gradle documentation and see what it can tell us about the repositories block.
+
+https://docs.gradle.org/current/dsl/#dsl
+Well in the gradle build language reference, it gives you all about the links
+for the various build scripts blocks that gradle provides for this plugin and by clicking on the link,
+there for a "repositories", it takes us to the section on it.
+And you'll see the actual delegate object is "RepositoryHandler".
+So we are actually using an instance of "RepositoryHandler" which is the delegate object.
+In fact actually tells you that "Delegates to:" RepositoryHandler
+---https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:repositories(groovy.lang.Closure)
+Delegates to:
+RepositoryHandler from repositories
+---
+
+So once we have this information we can then use it by looking at the API for the RepositoryHandler instance.
+Now once we've got the actual documentation for the repository handler, we can scan for and browse the various methods available to us
+and the descriptions.
+https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.dsl.RepositoryHandler.html
+And when we scroll down we see our "mavenCentral" method there and we click on that and actually gives us a
+really useful description about what it is and the actual URL for the Maven Central and even gives us an example of actually
+how to use it in our build script, so we can copy and paste this into our own build script.
+https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.dsl.RepositoryHandler.html#org.gradle.api.artifacts.dsl.RepositoryHandler:mavenCentral()
+
+Now having access to a repository which contains all the artifacts we need is unfortunately only part of the story.
+The other part of the story is that we need to tell gradle the actual artifacts we need for our particular project and
+our particular circumstances and a way to do that is to use dependencies and we use the dependencies block.
+https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:dependencies(groovy.lang.Closure)
+Now this works in exactly the same way as the repository block, it too has a delegate object,
+and in this case the delegate object is "DependencyHandler".
+In fact the documentation says here delegates to DependencyHandler.
+Å`ó™Å`
+
+So let's head over to eclipse and include a dependencies block into our build script and we can see how we can go ahead and configure it.
+
+So including dependencies block is fairly(ã…ÇﬂÇƒ) straightforward, it's just the keyword "dependencies" followed by the 
+open and close curly braces for the closure.
+Once we're in these kind of braces we're actually using the "DependencyHandler" (crue?) the keyword implementation and then
+we follow it by the coordinates which identify the actual artifact it is we want to use.
+Now if you are use to using the Maven, you remember that the Maven build tool also has coordinates
+and (fast?) known as the Maven coordinates or gradle is very much the same.
+In fact in gradle it's the group name and the version.
+
+So how do we actually locate the jar files or the artifact we want to use ?
+A really good WEB site is http://www.mvnrepository.com/ and you can do a search there for a particular component you want to use
+or you are using to find out the latest version or just to get the gradle coordinates for that particular artifact.
+
+Now for this application, I hope to be using the Apache commons maths jar file or artifact.
+So I want to get the latest version of that, I just to a search on it and the latest version is 3.6,
+there we are (within?) Maven Central repository.
+So I just click on the link here for 3.6.1 and you can see here then I've got a tab that gives us the Maven dependency,
+but we're not interested in maven here we want the gradle coordinates.
+You see it says 
+---
+// https://mvnrepository.com/artifact/org.apache.commons/commons-math3
+compile group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
+---
+I'm completely copy that, leaving off the "compile" becauuse I'm using implementation.
+"compile" by the way is being deprecated.
+So we now should be using the "implementation" keyword.
+I'm just really gonna paste that in.
+Now you use this as it is, but we can actually remove "group:" "name:" "version:"
+But just make sure everything is seperated by : there and there's only set of single quotes
+---
+dependencies{
+	implementation 'org.apache.commons:commons-math3:3.6.1'
+	testImplementation 'junit:junit:4.12'
+}
+---
+We have that's a shortcut way of doing things and I'm going to use this standard for the rest of the cource.
+But remenber we don't use "compile" or "compile test" anymore,
+we use "implementation" and "implementation test" and I'll be talking about that in a bit more detail later on the cource.
+So now all that's left to do is to actually include a "test implementation" of the Junit ...
+Å`ó™Å@JunitÇÃíËã`Ç‡í«â¡Å` 
+
+So really all that's left now is to do a build, and I want to do a clean, and then a build,
+so I'm going to be using the clean task followed by the build lifecycle task and that's what I'll be looking at in the next tutorial.
+
