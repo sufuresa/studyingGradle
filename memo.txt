@@ -889,3 +889,16 @@ So now all that's left to do is to actually include a "test implementation" of t
 So really all that's left now is to do a build, and I want to do a clean, and then a build,
 so I'm going to be using the clean task followed by the build lifecycle task and that's what I'll be looking at in the next tutorial.
 
+<<< 35. Building our 1st java application >>>
+In this tutorial, I' gonna start looking to perform the actual build and I'm going to be using the build ship plugin
+so I go to the gradle task tab, and select the clean task and do a right click and run task
+and I do the same again for the build task and select that and then there are a run task and here 
+you can see build ship is calling the compile java task.
+And this is really great here because it shows the actual tasks being executed and also how long it takes to execute those tasks.
+And it gives the full lifecycle and details.
+So let's go ahead and refresh eclipse and then we can also do a gradle refresh and it gets everything to synchronize it self up
+with the file system.
+
+--- 1:07 ---
+
+
