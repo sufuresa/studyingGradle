@@ -898,7 +898,42 @@ And this is really great here because it shows the actual tasks being executed a
 And it gives the full lifecycle and details.
 So let's go ahead and refresh eclipse and then we can also do a gradle refresh and it gets everything to synchronize it self up
 with the file system.
+Now part of the build lifecycle is the task "jar".
+Now the task jar actually bulids us a jar file which contains our application. So where does that live ?
+Well we're going to need to go over to the navigator explorer and do that we just select the navigator tab next to the explorler tab
+the explorer tab the jar file itself lives in the directory "libs" lives in the directory "libs" lives in the "build" directory.
+Now this is part of the gradle standard our jar files live in the "libs" directory.
+～略～
+So if we go into the folder onto the build folder called "reports" you'll find there's also another folder "tests".
+When we drill down that down we'll come across an index.html file and when we open it up in your browser
+you can see this is the result of running our unit tests and you can see there 100 percent successful.
+Now this comes out of the box of gradle.
+This is part of the build lifecycle and it comes as part of the Java plugin.
+～初回と２回目以降だと、２回目以降の方が処理時間が短く済む。コンパイルだと、ソースが変わってなければコンパイル結果が存在することを
+　確認して、コンパイル処理を実行しない（時間節約） 。ビルド実行前にcleanすると、初回実行時と同じになって時間がかかる～
+～javadoc生成の説明～
 
---- 1:07 ---
+So you see gradle provides some really convenient task straight out the box(すぐに使える) and they're all available within the Java Plugin.
+Now was well worth at this point just to review how many lines of code or gradle DSL if you like is taken to get this far when you compare
+that to an equivalent(同等の) pom file with Maven.
+It's quite fantastic.
+We've literally got three sections here ... and that's it.
+------------------------------
+plugins {
+  id 'java'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies{
+	implementation 'org.apache.commons:commons-math3:3.6.1'
+	testImplementation 'junit:junit:4.12'
+}
+------------------------------
+The rest of it comes straight out the box for us.
+So in the next tutorial, ...I need to create a standalone executable jar file and gradle doesn't provide this functionality out of the box.
+So we can actually add this functionality ourselves by using some groovy code.
 
 
