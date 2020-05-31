@@ -936,4 +936,79 @@ The rest of it comes straight out the box for us.
 So in the next tutorial, ...I need to create a standalone executable jar file and gradle doesn't provide this functionality out of the box.
 So we can actually add this functionality ourselves by using some groovy code.
 
+<<< 36. Assembling our Java application >>>
+～略～
+If we look at the completed projects jar file, you'll notice the names a little bit different.
+It's got the "-all" included but also their contents is different.
+We don't just have the application in the jar.
+We also have the actual dependencies.
+In this case it's from the Apache comments mass library that is all being packages up and included.
+Now when we compare that to the original gradlejava1-initial.jar , we just basically have a folder for 
+the application and compile classes.
+
+Another thing that's also different is the actual manifest file(MANIFEST.MF) itself.
+In the completed version, it contains the "Main-Class" that needs to be invoked when we run it from the command line
+and we need to include that too.
+
+Ok, so looking at our requirements, we've got three things we want to do.
+First of all we need to change the name of the jar file itself and we also need to change the contents of the manifest file.
+And finally we need to find a way of including in the jar file all the dependencies in order for it to run.
+
+Now gradle doesn't provide us an out of box solution(インストールして設定作業ほとんどせずにすぐ使える) here.
+So we can have to hand craft something ourselves.
+Now all about my requirements here, all three of them are to do with a jar file.
+So be a really good starting point to actually start looking at the Jar task to see what properties and methods are
+available to us to help us create a solution.
+So what better place to start than gradle online documentation.
+
+I'm browsing online documentation for the Jar task and it gives me a great view of all the 
+properties and methods available to me if I want change, manupulate jar file.
+https://docs.gradle.org/current/dsl/org.gradle.api.tasks.bundling.Jar.html
+
+So let's start off with something fairly straightforward, changing the name of the jar file.
+You can see here a property called "baseName".
+So by changing that property will also be changing the name of the jar file.
+That's something we can bear in mind.
+Also we need to manipulate or edit our manifest.
+Now there is a method here "manifest" it takes a configuration closure.
+Again, this is something worth bearing in mind, and we may try to use that a little bit later on.
+Well having this knowledge from the Java docs is all well and good, but how does this translate across to our buld.gradle file?
+
+Well in our build.gradle file, we need to edit the Jar task itself and to do that we just get access to the Jar task 
+which is simply just using the word "jar" and that gives us access to the jar task and then we wrap the configuration
+in open and close curly braces.
+
+Ok, so let's go ahead and do that just to print out the baseName to the console.
+So here I've got access to the jar task and within the curly braces I've used the println and within the curly braces
+I've used the println and I'm really just going to write out the baseName to the console and run that see what happens.
+
+jar {
+	println ">>>> baseName: $baseName"
+}
+
+...the baseName is actually printed out.
+---
+>>>> baseName: gradlejava1-initial
+---
+Well that's really good because we actually reading from the property baseName, that means we can also write to that property as well.
+And that's what we're going to do next.
+So to get access to the property, we can just use property itself.
+And if you remember that maps to the delegate object, and in this case it's the Jar task.
+So it's like saying jar.baseName = ... and then the value we want to assign the baseName.
+So in this example I want to use the project name, and also include a "-all" because I'm going to include all dependencies.
+Now don't forget we need to use the dollar sign and wrap the whole thing in double quote and then when we rerun our task
+we'll see that a different baseName is being output to the console.
+
+jar {
+	baseName = "$project.name-all"
+	println ">>>> baseName: $baseName"
+}
+---
+>>>> baseName: gradlejava1-initial-all
+---
+
+--- 5:58 ---
+
+
+<<< 37. Assembling our Java application Part2 >>>
 
