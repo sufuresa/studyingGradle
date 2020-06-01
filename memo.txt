@@ -1009,6 +1009,27 @@ jar {
 
 --- 5:58 ---
 
+Å`ó™Å`
+... next requirement I want to access a method.
+If you remember back to the java doc it's actually the manifest method that takes in a configuration clusure.
+And it's this method that allows us to configure our manifest file.
+So by reading the Java doc for this method it gives us a really good clue actually tells us that a manifest object
+is passed to the closure as its delegate.
+So in other words once we actually use the method manifest, we also have access to the manifest object by default as the delegate.
+
+Let's have a look at the manifest interface and see what methods are available to us.
+That will help us set the values in our manifest file.
+Now browsing the documentation for the manifest interface really helps because straight away we can see
+as a property on the interface called attribute and it takes in a map.
+Now the key for the map needs to be a string, but the actual value can be any object but we're going to use a string anyway.
+Gradle will be calling the toString method on a string which will just be the string we're providing.
+So that's how we get our attributes or values into our manifest file, we create a map.
+So how does that translate across to our build.gradle file ?
+Well we access the attributes property on the manifest object and we pass the attributes property a map 
+so to begin with let's just access the property of attributes.
+
+--- 7:47 ---
+
 
 <<< 37. Assembling our Java application Part2 >>>
 
