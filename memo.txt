@@ -1027,8 +1027,78 @@ So that's how we get our attributes or values into our manifest file, we create 
 So how does that translate across to our build.gradle file ?
 Well we access the attributes property on the manifest object and we pass the attributes property a map 
 so to begin with let's just access the property of attributes.
+And now we can start thinking about how to pass in a map.
 
---- 7:47 ---
+Well a map is a key value pair and we know the key needs to be a string so we can create a string
+and then we separate it with a colon.
+And then we can pass it the value of our object in the value is going to be a string as well.
+So both strings are going to be wrapped in single quotes here.
+The value of the first attribute for a manifest file is going to be the 'Implementation-Title'
+and I'm going to pass that the value of 'Gradle all inclusive jar'.
+The keys themselves come from the manifest file standard which was developed for Java.
+So I'm not just making these names up and if I did that runtime they would fail with a runtime exception.
+So now I'm using the 'Implementation-Version'.
+I'm including the version number and then 'Created-By' just passing "denofprogramming".
+And then finally include the 'Main-Class' that's going to be used to actually run our application and 
+it's got to be fully qualified path named so it's 'com.denofprogramming.random.App'
+
+---------
+jar {
+	baseName = "$project.name-all"
+	println ">>>> baseName: $baseName"
+	manifest {
+		attributes 'Implementation-Title' : 'Gradle all inclusive jar',
+		'Implementation-Version': version,
+       	'Created-By' : "denofprogramming",
+       	'Main-Class': 'com.denofprogramming.random.App'
+	}
+}
+----------
+`@—ª@`
+
+Now the version and also the group for the project,
+I want to make a little bit more meaningful.
+Make this a snapshot version.
+And to change our property actually lives on the project (object) I'm going to use a fully qualified name here 
+it's just for clarity.
+So it's going to be a '0.0.1-SNAPSHOT'
+
+And also I'm going to assign a group because this is good practice too
+and the group lives as a property on the project object as well.
+And my group is going to be 'com.denofprogramming'
+
+---
+project.group = 'com.denofprogramming'
+project.version = '0.0.1-SNAPSHOT'
+---
+
+And to complete this, I'm going to change that also in the manifest just to make it clearer.
+So it's really for clarity's sake that the version is coming from the project object.
+`—ª`
+Let's go ahead and test this out.
+I'm just gonnna print the console the basename and also the attributes on the manifest.
+`—ª`
+I'm going to be printing to the console the contents of the attributes property that lives on the manifest object.
+Now don't forget to use the dollar sign here when you access the attributes on the manifest object and 
+also remember to use double quotes not single quotes when you wrapped the entire string, otherwise it won't work.
+---
+jar {
+	baseName = "$project.name-all"
+	println ">>>> baseName: $baseName"
+	
+	manifest {
+		attributes 'Implementation-Title' : 'Gradle all inclusive jar',
+		'Implementation-Version': version,
+       	'Created-By' : "denofprogramming",
+       	'Main-Class': 'com.denofprogramming.random.App'
+
+	}
+	println ">>>> baseName: $baseName"
+	println ">>>> manifest.attributes: $manifest.attributes"
+}
+---
+
+--- 10:51 ---
 
 
 <<< 37. Assembling our Java application Part2 >>>
