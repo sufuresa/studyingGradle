@@ -1097,9 +1097,31 @@ jar {
 	println ">>>> manifest.attributes: $manifest.attributes"
 }
 ---
-
---- 10:51 ---
-
+>>>> baseName: gradlejava1-initial-all
+>>>> manifest.attributes: [Manifest-Version:1.0, Implementation-Title:Gradle all inclusive jar, Implementation-Version:0.0.1-SNAPSHOT, Created-By:denofprogramming, Main-Class:com.denofprogramming.random.App]
+---
+ここまでで、jarファイルの名前がgradlejava1-initial-all-0.0.1-SNAPSHOT.jarになり、
+マニフェストファイルに上記が記載されるが、
+dependencyはまだ含まれない。
+次のチュートリアルでdependencyを含めるやり方を説明する。
 
 <<< 37. Assembling our Java application Part2 >>>
+～略～
+How do we get our dependencies included ?
+Well to help us work out what it is we need to do, it's best to consult the gradle documentation in particular for the Jar task itself
+
+https://docs.gradle.org/current/dsl/org.gradle.api.tasks.bundling.Jar.html
+
+Now when we scroll down we see one of the method called "from" and "from" takes a "sourcePaths".
+In fact when you read the description it says "Specifies source files or directories for a copy" .
+In fact that's exactly what we want to do.
+We want to copy files into our jar file.
+So this is exactly what we need.
+But how so we specify which files to copy ?
+Well this is the power of using groovy and gradle together.
+We cannot provide a closure that will actually return us all the files we want to be included into our jar file.
+But how can we determine which files it is ?
+
+--- 1:35 ----
+
 
