@@ -1244,5 +1244,42 @@ We need to use one of the others.
 In fact we need to use the "runtimeClasspath" which makes perfect sence because we are going to be running our Java applications.
 So we need all the runtime dependencies with it in our Jar file.
 So let's go ahead and change the ".compile" to the ".runtimeClasspath"
+I may run the jar task to see what results we get.
+So we got 
+---
+	println ">>>> $project.configurations.runtimeClasspath"
+Å´
+>>>> configuration ':runtimeClasspath'
+---
+So yeah we got a similar result to last time we got configurations only this time "runtimeClasspath".
+So now we know we can get a handle on that container.
+We just need to get access to the files and directories contained in that container.
+In fact there's a really useful method from groovy in fact every object in groovy inherits this methid called "collect".
+Now collect iterate through a collection converting each element into a new value using the clusure as the transformer.
+So we can actually provide the clusure with this method to help us transform the results.
+And that's ideal for what we want to do because we actually want to collect the files and include those
+files into our Jar file.
+So we know we're going to be manipulating files, so we can set the (officer?) definitions we got files there.
+But what we can transform that file with ?
+Well actually we need to use a utility method called zip tree and that can be found on the project API.
+Because what we need to do is to actually take the contents from the dependency file and include it into our jar file.
+So in other words we need to unzip the dependency file Jar file, in our case the Apache-commons-math jar ,
+needs to unzip that unpackage that and include the contents into very own Jar file, and this method does that, call a zip tree.
+So let's go ahead and plug this method into our clusure.
 
---- 4:40 ---
+---
+	println project.configurations.runtimeClasspath.collect{File file -> project.zipTree(file)}
+Å´
+[ZIP 'C:\Users\sufur\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-math3\3.6.1\e4ba98f1d4b3c80ec46392f25e094a6a2e58fcbf\commons-math3-3.6.1.jar']
+---
+So all it's left to do now is to (take?) this bit of code we've been testing out here with a println 
+and to actually place it into a "from" closure, now we met our main three requirements.
+
+We've changed the project name,
+we have modified the manifest file to include our attributes we need.
+And we've also included the unzipped contents for our dependency files into our own Jar file.
+And this is all done it takes place in jar task.
+
+Å`ó™Å`
+
+<<< 38.Buiding a Java Web application >>>
