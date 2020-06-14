@@ -2,31 +2,43 @@
 
 One of the biggest aspects of the groovy language that is used in gladle is that of closures.
                    物事の面
-So I'll be spending some time looking at closures what they are and how they work and the various types of syntax they use.
+So I'll be spending some time looking at closures what they are and how they work and the
+various types of syntax they use.
 
 So what are closure? (What) a kind of like lambda in Java 8 or code blocks in Smalltalk .
-And they declare by using a pair of curly braces. (and) which we defined a closure we can actually assign it to a variable a bit like a value if you like.
+And they declare by using a pair of curly braces. (and) which we defined a closure we can
                                     {}
                                     
                                     def echoIt = {}
-                                    
+ actually assign it to a variable a bit like a value if you like.
                                     
 So here I've got the accurate variable I'm assigning it to the definition of a closure.
-Now to actually run a closure or evalueate it we use the parentheses or open and close brackets a bit like a method call.
-                                                         丸括弧                        かぎ括弧[]
-So here by including the open and close parentheses on the accurate variable telling groovy we actually want to invoke or evaluate that closure.
+Now to actually run a closure or evalueate it we use the parentheses or open and close
+                                                         丸括弧
+brackets a bit like a method call.
+かぎ括弧[]
+
+So here by including the open and close parentheses on the accurate variable telling
                                         丸括弧
                                         
                                         println echoIt()
-
-And when we do, you see the result is null because basically we don't have any contents within our closure.
-Now if we actually leave off the parentheses we can actually print out the actual toString method on the closure.
+groovy we actually want to invoke or evaluate that closure.
+ 
+And when we do, you see the result is null because basically we don't have any contents
+within our closure.
+Now if we actually leave off the parentheses we can actually print out the actualtoString
                    上記20行目の()を削除すると…
-And as you see here it's quite a long meaningless name, but it shows that we're not actually evaluating the closure, we're actually calling the toString method on the closure itself.
+method on the closure.
+
+And as you see here it's quite a long meaningless name, but it shows that we're not
+actually evaluating the closure, we're actually calling the toString method on the
+closure itself.
+
 You can think of closure as almost like an anonymous in a class in Java.
 Okay so let's go ahead and actually put some code in our closure.
 We can actually do the print line "Hello World" again.
-Now you'll see that we're not actually returning a value here, and clusure are very much like methods they always return value of the last statement
+Now you'll see that we're not actually returning a value here,
+and clusure are very much like methods they always return value of the last statement
 
                                     def echoIt = {
                                       println "Hello World"
@@ -40,7 +52,8 @@ and the "Hello World" was printed out to the console.
 
 So so far we've seen that evaluating closure is very similar to that of methods.
                           ------------------
-                          println echoIt …左記のようにechoItに対してprintlnしていることを"evaluating closure"といっている？
+                          println echoIt …左記のようにechoItに対してprintlnしていることを
+                                           "evaluating closure"といっている？
 
 -- 2:17 ---
 
@@ -52,22 +65,31 @@ Closures
 	②Special Syntax
 	③Code Block
 
-①We are going to be concentrating on looking at passing clusures as parameters to our method.
-　Who's going to examine the special type of syntax we need to do this when there's more than one parameter being passed to a method.
-②And finally I'm going to look at a design pattern called code block and that's used quite frequently within gradle.
+①We are going to be concentrating on looking at passing clusures as parameters
+　to our method.
+　Who's going to examine the special type of syntax we need to do this when there's more
+　than one parameter being passed to a method.
+②And finally I'm going to look at a design pattern called code block and that's used
+　quite frequently within gradle.
 
-①Okay so let's start off by looking at how we can actually pass a closure to a method as a parameter.　…クロージャをメソッドパラメタとして渡す
-　So as you can see I've created or defined a method here it's name is oneArgMethod and it accepts one parameter which is going to be the closure.
-　So I'm going to keep the actual implementation of this method fairly straightforward.
-　                                                              -----------------------
-　                                                              簡単
+①Okay so let's start off by looking at how we can actually pass a closure to a
+　method as a parameter.　…クロージャをメソッドパラメタとして渡す
+　So as you can see I've created or defined a method here it's name is oneArgMethod and it
+　accepts one parameter which is going to be the closure.
+　So I'm going to keep the actual implementation of this method fairly straightforward.(簡単)
+
 　What I'm going to do is actually multipy the result of running the closure with 2.
-  So I have to invoke the closure that gets passed in, and then the result that gets returned by that clusure gets multiplied by 2.
+  So I have to invoke the closure that gets passed in, and then the result that gets
+  returned by that clusure gets multiplied by 2.
   And then I'm going to print out the result to the console,
-  so calling the method itself is like calling any other method (readers) just use the method name known as the parameter which is the closure itself, we use the curly braces.
-  Now you notice here I'm leaving off the parentheses that go with the method call because in groovy the parentheses are method call are actually optional.
-  So here in basic running the method passing in the closure with various values passed in for now if just passed in 10 and you'll notice that those values get multiplied by 2
-  because in our one argument method we actually invoke the closure and then we multiply the result by 2 and as that statement is the last thing in the method,
+  so calling the method itself is like calling any other method (readers) just use the
+  method name known as the parameter which is the closure itself, we use the curly braces.
+  Now you notice here I'm leaving off the parentheses that go with the method call because
+  in groovy the parentheses are method call are actually optional.
+  So here in basic running the method passing in the closure with various values passed in
+  for now if just passed in 10 and you'll notice that those values get multiplied by 2
+  because in our one argument method we actually invoke the closure and then we multiply
+  the result by 2 and as that statement is the last thing in the method,
   the result automatically gets returned.　…実行結果を見る
 
 // pass clusures as a parameter
@@ -86,19 +108,23 @@ def oneArgMethod(factor, closure) {
 }
 println oneArgMethod(3,{10})
 
-  Now when there's more than one argument passed into a method and one of those arguments is a closure,
+  Now when there's more than one argument passed into a method and one of those arguments
+  is a closure,
   the closure is (or) the last argument to be passed in, 
   and there is an advantage to that.
-  The advantage is we don't need to wrap the closure part of the argument with parentheses. 
+  The advantage is we don't need to wrap the closure part of the argument with parentheses.
   So as you can see here the parentheses brackets are optional.
 
 println oneArgMethod 3,{10}
 
 Now also to know the closures don't need to be one line of code,
-you can have multiple lines of code within a closure so let's have a look at an example of that.
+you can have multiple lines of code within a closure so let's have a look at an example
+of that.
 
-Okay so let's define a new variable "i" which is going to contain the result of our call to "oneArgMethod".
-"oneArgMethod" method is going to take in our multiple line closure which is y=3 , and then y * 2, is that 6 ?
+Okay so let's define a new variable "i" which is going to contain the result of our
+call to "oneArgMethod".
+"oneArgMethod" method is going to take in our multiple line closure which is y=3 ,
+and then y * 2, is that 6 ?
 
 def i = oneArgMethod {
 	def y = 3
@@ -108,28 +134,33 @@ def i = oneArgMethod {
 "i" is equals to 12 because don't forget our closure gets passed into our method call.
 
 That's assert that "i" equals 12.
-Now (grading and) passing in multi line closure as parameters into method is a really popular pattern
-or technique and it's used extensively(広く) in gradle.
+Now (grading and) passing in multi line closure as parameters into method is a really
+popular pattern or technique and it's used extensively(広く) in gradle.
 This is called a "block" or a "code block".
 
-In fact we don't need to look too far in the actual groovy API as well to find this technique being used quite often.
-In fact if you look at the common usecases for collections, you will see multi line closures being used all the time.
+In fact we don't need to look too far in the actual groovy API as well to find this
+technique being used quite often.
+In fact if you look at the common usecases for collections, you will see multi line
+closures being used all the time.
 
 So let's compare the two techniques.
 
-This is a traditional way of doing things with a for loop as you're pretty much there in Java.
-We're iterating over an array of numbers 1,2,3 and then "j" basally is each item in that array or collection, and then we print out.
+This is a traditional way of doing things with a for loop as you're pretty much there
+in Java.
+We're iterating over an array of numbers 1,2,3 and then "j" basally is each item in that
+array or collection, and then we print out.
 
 for (int j in [1,2,3]) {
 	print j
 }
 
 And groovy a little bit different.
-We have our collection and that collection has a (methodologic(方法論) …多分違う) called each
-and that method "each" accepts as an argument, a closure. 
+We have our collection and that collection has a(methodologic(方法論) …多分違う)called
+each and that method "each" accepts as an argument, a closure. 
 And we pass that closure into the method "each" and once basically the code
 gets evaluated each element from the collection gets passed into the closure.
-So just to reiterate we call a closure once for each item passing the item to the closure as the argument.
+So just to reiterate we call a closure once for each item passing the item to the
+closure as the argument.
 Now as much more object oriented than the  standard follow.
 
 [1,2,3].each {
@@ -140,7 +171,8 @@ Now as much more object oriented than the  standard follow.
 
 ～導入部は省略～
 
-In this example I have a class of Person and the Person has a name which is an instance variable.
+In this example I have a class of Person and the Person has a name which is an
+instance variable.
 
 class Person {
     String name = "Fred"
@@ -161,35 +193,48 @@ sayName()
 theName = "Bill"
 sayName()
 
-In fact in groovy we can now call our property and offset the name to a default value of "Fred".
+In fact in groovy we can now call our property and offset the name to a default
+value of "Fred".
 Now I also have a second instance variable.
 This time the instance variable holds or contains a closure.
 In fact the variable "nameSayer" is actually of type closure itself.
 Now the default block of code for this closure "nameSayer" will print name to the console.
-So when I create a new instance of the class I referenced the closure which is held in instance variable "nameSayer".
+So when I create a new instance of the class I referenced the closure which is held in
+instance variable "nameSayer".
 I can evaluate this closure just like a normal method.
 Closures keep a refernce to the context in which they've been defined.
 
-Now you can see in the second example that the closure "sayName" has a reference to the variable "theName" which is currently equal to John.
-And when we evaluate this closure that's exactly what we see, we see that name "John" printed to the console.
-Now if we decide to change the value of the name variable to "Bill" for example what happens when we actually run that closure again?
-We can see the actual value being printed to the console was changed to "Bill",is no longer "John".
+Now you can see in the second example that the closure "sayName" has a reference to the
+variable "theName" which is currently equal to John.
+And when we evaluate this closure that's exactly what we see, we see that name "John"
+printed to the console.
+Now if we decide to change the value of the name variable to "Bill" for example what happens
+ when we actually run that closure again?
+We can see the actual value being printed to the console was changed to "Bill",
+is no longer "John".
 
-So as the contents of the variable itself changes the actual result of the closure when evaluate it is different.
+So as the contents of the variable itself changes the actual result of the closure when
+evaluate it is different.
 So what's going on behind the scenes here?
-Well it turns out(判明する) the closures keep a reference to the context object in which they're defined and not a reference to the values.
+Well it turns out(判明する) the closures keep a reference to the context object in which
+they're defined and not a reference to the values.
 
-So the important take home point here is that when the context is actually updated and when the closure runs again,
+So the important take home point here is that when the context is actually updated and
+when the closure runs again,
 it will run against the new values actually held in the context.
 
-JavaScript also uses this concept a lot and it's really key in actually understanding how gradle uses groovy as a scripting language too.
+JavaScript also uses this concept a lot and it's really key in actually understanding how
+gradle uses groovy as a scripting language too.
 By default in groovy this context is also known as the owner object.
-This concept of the context with a closure is really key to understanding how gradle or groovy actually work together.
+This concept of the context with a closure is really key to understanding how gradle or 
+groovy actually work together.
 
 Now with working with gradle and groovy, you'll hear a lot about a delegate object.
-While the delegate object is just another groovy term for the context with which the closure actually runs against.
+While the delegate object is just another groovy term for the context with which the closure
+actually runs against.
 
-Now here is my class Person I've created a new method called "executeInside" and that takes with a parameter which happens to be a closure.
+Now here is my class Person I've created a new method called "executeInside" and that takes
+with a parameter which happens to be a closure.
 
 class Person2 {
     String theName
@@ -209,22 +254,30 @@ def p2 = new Person2("Fred", 35)
 p2.executeInside { println theName }
 
 
-Now the first line of the method you can see I'm referencing the delegate property which is actually a property on the closure.
-Now I'm assigning to that or setting that with "this" which is the key word "this" which equates to the instance of Person.
-Now once this property has been set, I then run or evaluate the closure by calling "c" where the open and close brackets.
+Now the first line of the method you can see I'm referencing the delegate property which
+is actually a property on the closure.
+Now I'm assigning to that or setting that with "this" which is the key word "this" which
+equates to the instance of Person.
+Now once this property has been set, I then run or evaluate the closure by calling "c"
+where the open and close brackets.
 So what does all this actually mean?
-Well it means that we can create a new person object and execute an arbitary(任意の) block of code against that object.
+Well it means that we can create a new person object and execute an arbitary(任意の)
+block of code against that object.
 And also have access to the instance variables of that object.
 
-Now when you think about it, this is a really powerful concept because we can now actually add arbitrary(任意の) code to a class
-without having to change the class and this is really useful to know because this is exactly how gradle works behind the scenes.
-And I'll be looking at this concept and how it works throughout this course as it's same fundamental to actually understanding how gradle works behind the scenes.
+Now when you think about it, this is a really powerful concept because we can now actually
+add arbitrary(任意の) code to a class
+without having to change the class and this is really useful to know because this is
+exactly how gradle works behind the scenes.
+And I'll be looking at this concept and how it works throughout this course as it's same
+fundamental to actually understanding how gradle works behind the scenes.
 
 <<< 14. Introduction the Gradle Object Model  >>>
 ・６つの重要なgradle APIがある。
 
 ①Script<Interface>
-　全てのbuild.gradleファイルにはScript<Interface>が実装されており、共通で利用可能なプロパティやメソッドがある。
+　全てのbuild.gradleファイルにはScript<Interface>が実装されており、
+　共通で利用可能なプロパティやメソッドがある。
 
 ②Project<Interface>
 
@@ -251,41 +304,49 @@ And I'll be looking at this concept and how it works throughout this course as i
 1.Initialization
 　→init.gradle + other.gradle
 　　・・・ + other.gradle は、拡張子が.gradleであれば
-　　　　　C:\Users\sufur\.gradle\init.d　配下にあるものがabc順に、Initialization phaseの中で実行される。
-　　　　　other.gradle のどれかでclosure が定義された場合、その他のother.gradleでもそれを利用可能。グローバル変数のように。
+　　　　　C:\Users\sufur\.gradle\init.d　配下にあるものがabc順に、
+　　　　　Initialization phaseの中で実行される。
+　　　　　other.gradle のどれかでclosure が定義された場合、その他のother.gradleでも
+　　　　　それを利用可能。グローバル変数のように。
 　→settinngs.gradle
 　　・・・複数プロジェクトの際に必須。プロジェクトが一つのみの場合は任意。
 
-Now these scripts however run before the actual build stats, and there are several good reasons for this.
-They allow you to set up various configurations, like to set up enterprise wide configuration
-such as where to find customized plugins to set up properties based on the current environment such as a
-developer's machine vs a CI server.
+Now these scripts however run before the actual build stats, and there are several good
+reasons for this.
+They allow you to set up various configurations, like to set up enterprise wide
+configuration such as where to find customized plugins to set up properties based on the
+current environment such as a developer's machine vs a CI server.
 
-They can supply personal information about the user that is required by the build such as database authentication.
+They can supply personal information about the user that is required by the build such as
+database authentication.
 They can define specific details such as build listeners and also register build loggers.
 
-Npw later on in the course I'll be looking at using the initialization scripts to help us set up our building (farmer …後で説明するというのだから後で明らかになるでしょう)
+Npw later on in the course I'll be looking at using the initialization scripts to help us
+set up our building (farmer …後で説明するというのだから後で明らかになるでしょう)
 before we perform the build itself.
 
-Now the settings.gradle file is more specific and is oriented(方向づけられた、志向の) (towards) multi project projects.
+Now the settings.gradle file is more specific and is oriented(方向づけられた、志向の)
+(towards) multi project projects.
 And that's why a gradle determines（決める、定める） which projects to include in the build. 
 I'll be looking that in a section of the course about multiple projects.
 
-And the "Configuration phase" relies on the build.gradle file, and the "Execution phase" also.
-And you have a build.gradle file for each of those projects.
+And the "Configuration phase" relies on the build.gradle file, and the "Execution phase"
+also. And you have a build.gradle file for each of those projects.
 So if you have a multi project, each project have to have a build.gradle file.
 <<< 16. The Gradle Initialization Phase >>>　以後省略。
 
 <<< 17. Lifecycle Phases and the Gradle Object Model >>>
 
 ～出だし省略～
-I finished the last tutorial by showing an example where I shared a clusure which produces a timestamp,
-and then within each of the scripts we printed out to the console the actual date and time when it ran.
+I finished the last tutorial by showing an example where I shared a clusure which produces
+a timestamp, and then within each of the scripts we printed out to the console the actual
+date and time when it ran.
 
 A couple of interesting aspects(側面) to how I did this.
 The first is that I use the property called timestamp.
 
-Now I'm not going to look at that in this tutorial but what I want to start looking at is the actual object we set that timestamp on.
+Now I'm not going to look at that in this tutorial but what I want to start looking at is
+the actual object we set that timestamp on.
 
 -------------------------------------------
 import java.text.*
@@ -298,90 +359,118 @@ println ">>> another.gradle --> This is executed during the initialization phase
 -------------------------------------------
 
 I accessed an object called "gradle".
-Now the "gradle" object we have access to throughout the entire buid lifecycle and that's why I want to look at in this tutorial.
-All the various gradle objects that we have access to at various points within the build lifecycle.
+Now the "gradle" object we have access to throughout the entire buid lifecycle and that's
+why I want to look at in this tutorial.
+All the various gradle objects that we have access to at various points within the build
+lifecycle.
 
-Now generally speaking in most gradle builds you're not going to have as many files as I have in this example.
-I just created as many files as I could just to show an example of how gradle evaluates the files in the ordering in which it does (so).
+Now generally speaking in most gradle builds you're not going to have as many files as
+I have in this example.
+I just created as many files as I could just to show an example of how gradle evaluates
+the files in the ordering in which it does (so).
 
-But we're always going to have one file with another gradle build and that's the build.gradle file.
+But we're always going to have one file with another gradle build and that's the
+build.gradle file.
 So let's start looking at the build.gradle file, the object model that goes along with that.
 
-So to begin with we know that every projects has a build.gradle file ant that build.gradle file represents(表す、説明する)
+So to begin with we know that every projects has a build.gradle file ant that build.gradle
+file represents(表す、説明する)
 a script or a build script.
 
-When we run our build script, gradle actually instantiates an object that implements the Script<Interface>,
+When we run our build script, gradle actually instantiates an object that implements the
+Script<Interface>,
 and it does this (for the) build script within our build.
-So in the last tutorial where I jad five files with a ".gradle" extention, that equates to five build scripts.
-So in effect(要するに) you have five objects instantiated that implement the Script<Interface>.
-That's one for each build script.
+So in the last tutorial where I jad five files with a ".gradle" extention, that equates
+to five build scripts.
+So in effect(要するに) you have five objects instantiated that implement
+the Script<Interface>. That's one for each build script.
 
-Now we've also seen in past tutorial that we have access to a whole bunch of properties and methods on the build script.
+Now we've also seen in past tutorial that we have access to a whole bunch of properties and
+methods on the build script.
 But this isn't the end of the story.
 
 We also have access to another object called the "delegate".
-Now the delegate can change depending on which part of the build lifecycle you happen to be in.
+Now the delegate can change depending on which part of the build lifecycle you happen
+to be in.
 
-Say for example where(we are?) in the actual configuration phase and we're working on our build.gradle file,
-well our delegate object there happens to be called Project is called project because it implements the project interface.
-And if we go over to the gradle API documentation, we can actually reference the project interface.
-And once we reference the documentation we get a really clear idea as to some of the properties and 
-methods that are publicly available to us so we can actually used within our builds.
+Say for example where(we are?) in the actual configuration phase and we're working on our
+build.gradle file,
+well our delegate object there happens to be called Project is called project because it
+implements the project interface.
+And if we go over to the gradle API documentation, we can actually reference the 
+project interface.
+And once we reference the documentation we get a really clear idea as to some of the
+properties and methods that are publicly available to us so we can actually used within
+our builds.
 
-But it's really important to note that the delegate object is different depending on which part of the
-gradle build lifecycle you happen to be working in.
-And that's one of the reasons I've spent so much time going over this concept because so many people
-get cunfused by it (and so many banks get graded that way)
+But it's really important to note that the delegate object is different depending on which
+part of the gradle build lifecycle you happen to be working in.
+And that's one of the reasons I've spent so much time going over this concept because
+so many people get cunfused by it (and so many banks get graded that way)
 
-So in the build.gradle file we have access to a script object and that gives us access to properties
-such as the logger and the apply method that takes in a closure.
-And we also have access to the delegate which is the project object which is an object that implements the project interface.
-Now this is only because we're in the configuration phase and we have a different story when we start
-looking at the setting.gradle file, is only mandatory(必須の) when we have a build that consists(から成る) of 
-many projects and I'll be looking at multi projects build later on of course, but for now I just want to show
-that within that lifecycle or that aspect of the lifecycle we still have access to the script object or an 
-object that implements the script interface but the delegate object is different, is actually an object that 
-implements the settings interface and that gives us a different bunch of properties and methods.
+So in the build.gradle file we have access to a script object and that gives us access
+to properties such as the logger and the apply method that takes in a closure.
+And we also have access to the delegate which is the project object which is an object that
+implements the project interface.
+Now this is only because we're in the configuration phase and we have a different story
+when we start looking at the setting.gradle file, is only mandatory(必須の) when we have
+a build that consists(から成る) of many projects and I'll be looking at multi projects
+build later on of course, but for now I just want to show that within that lifecycle or that
+aspect of the lifecycle we still have access to the script object or an object that
+implements the script interface but the delegate object is different, is actually an object
+that implements the settings interface and that gives us a different bunch of properties
+and methods.
 This is mainly to do with separation of concerns(関心の分離).
 We're only concerned when we're using their settings.gradle file with multi project builds.
-So the actual interface the settings interface is more geared toward(～に適合/調整させた) that.
+So the actual interface the settings interface is more geared toward(～に適合/調整させた)
+that.
 
-You'll notice that within the setting object, we can have access to all the projects that make up the build.
-In the last tutorial I showed a whole bunch of initialization scripts (so) just made up so you could 
-see the order in which they're evaluated by gradle but generally if you want to use the initialization
-scripts, you'll use the init.gradle file.
+You'll notice that within the setting object, we can have access to all the projects
+that make up the build.
+In the last tutorial I showed a whole bunch of initialization scripts (so) just made up
+so you could 
+see the order in which they're evaluated by gradle but generally if you want to use the
+initialization scripts, you'll use the init.gradle file.
 
-Now thought the other build scripts you have access to a script object that implements the script interface,
-and also a delegate object that comes along with it.
-But this time the delegate object isn't settings or project, it's an object that implements the gladle interface.
+Now thought the other build scripts you have access to a script object that implements
+the script interface, and also a delegate object that comes along with it.
+But this time the delegate object isn't settings or project, it's an object that
+implements the gladle interface.
 
-Now this meke total sense when you think about where the initialization scripts get evaluated.
-They get evaluated in the initialization phase and at that point gradle doesn't know anything about any project in the build.
-So it has access to a higher level object that implements the gradle interface and our initialization scripts have access to 
-all the public properties and methods that go along with that interface.
+Now this meke total sense when you think about where the initialization scripts
+get evaluated.
+They get evaluated in the initialization phase and at that point gradle doesn't know
+anything about any project in the build.
+So it has access to a higher level object that implements the gradle interface and our
+initialization scripts have access to all the public properties and methods that
+go along with that interface.
 
-So just a recap(要約) our build script which lives in the build.gradle file uses a script object and also
-delegates to an object that implements the project interface and the build script runs in the configuration phase of the build lifecycle.
+So just a recap(要約) our build script which lives in the build.gradle file uses a script
+object and also delegates to an object that implements the project interface and the build
+script runs in the configuration phase of the build lifecycle.
 
-The settings.gradle script also has a script object or an object that implements the script interface and delegates to an 
+The settings.gradle script also has a script object or an object that implements the script
+interface and delegates to an 
 object that implements the settings interface and that runs in the initialization phase,
-and a init.gradle scripts which also have access to a script object, (a?the?) delegate to an object that implements the gradle interface.
+and a init.gradle scripts which also have access to a script object, (a?the?) delegate to
+an object that implements the gradle interface.
 
 These objects don't live on their own.
 
 The project object also has access through a propertiy to the gradle object.
 That's also true for the settings object that also has accsess to the gradle object.
 
-So in the previous example you saw I access to gradle object in the init.gradle file, settings.gradle file,
-or on the actual build.gradle file and that is how I was able to set the timestamp closure and use it
-almost as global data because I set it as a property on the gradle object itself.
-And that's what I'm going to start looking at in the next tutorial, properties and how we can create our own properties 
-and set them on a gradle object model  
+So in the previous example you saw I access to gradle object in the init.gradle file,
+settings.gradle file, or on the actual build.gradle file and that is how I was able to
+set the timestamp closure and use it almost as global data because I set it as a property 
+on the gradle object itself.
+And that's what I'm going to start looking at in the next tutorial, properties and how we 
+can create our own properties and set them on a gradle object model  
 
-【build.gradle   】 delegates to → 【Project  Interface】in a Configuration  Phase ーーー￢
-                                                                                           ｜
-【settings.gradle】 delegates to → 【Settings Interface】in a Initialization Phase ー￢   ｜
-                                                                                       ↓  ↓
+【build.gradle   】 delegates to → 【Project  Interface】in a Configuration  Phase ーー￢
+                                                                                         ｜
+【settings.gradle】 delegates to → 【Settings Interface】in a Initialization Phase ー￢ ｜
+                                                                                       ↓↓
 【init.gradle    】 delegates to → 【Gradle   Interface】in a Initialization Phase　←←←
 
 <<< 18. Lifecycle Phases and the Gradle Object >>>
@@ -399,22 +488,24 @@ OK
 ～略～
 ExtraPropertiesExtension allow new properties to be added to existing domain objects(*).
 This is a really powerful concept.
-So pretty much it acts like a map allowing storage of arbitrary key value pairs like the properties file we saw a minute ago.
-All domain objects that implement an interface called ExtentionAware intrinsically(内因的に 本質的に) have access to
-extended name properties and we do that using the syntax of "ext" as I've done here.
+So pretty much it acts like a map allowing storage of arbitrary key value pairs like the
+properties file we saw a minute ago.
+All domain objects that implement an interface called ExtentionAware
+intrinsically(内因的に 本質的に) have access to extended name properties and we do that
+using the syntax of "ext" as I've done here.
 
 project.ext.sayHello = "Hello!"
 logger.info project.sayHello
 //	logger.info sayHello // <-- this is also possible
 
-Now here you can see I'm using the extension name on the project object and I've added a property called "sayHello".
-And I'm assigning that a string of value "Hello!"
-Now where to access that property a little lator on because I actually want to pass the value to the
-logger to print it out to the console. So how do I do that?
+Now here you can see I'm using the extension name on the project object and I've added
+a property called "sayHello".And I'm assigning that a string of value "Hello!"
+Now where to access that property a little lator on because I actually want to pass the
+value to the logger to print it out to the console. So how do I do that?
 Well really I just treat it as any other property.
 
-It's only at the time of setting it up that I need to use the extension name of "ext" when I access it.
-I can access it just as any other property.
+It's only at the time of setting it up that I need to use the extension name of
+"ext" when I access it. I can access it just as any other property.
 And that's part of the magic of gradle and groovy working together that allows us to do that.
 
 (*)domain objects …Project ObjectやGradle Objectのこと。文脈による。
@@ -422,27 +513,31 @@ And that's part of the magic of gradle and groovy working together that allows u
 <<< 22. Tasks and the Gradle Lifecycle ... >>>
 
 ～略～
-...I've been looking at projects and I'm gonna start shifting the attention now to start looking at tasks
-and what tasks are.
+...I've been looking at projects and I'm gonna start shifting the attention now to start
+looking at tasks and what tasks are.
 Now as we already know every gradle build is made up of one or more projects.
-Now what a project represents depends on what it is we're trying to do in gradle for example it might
-represent a library or a jar file or even a whole web application.
+Now what a project represents depends on what it is we're trying to do in gradle for example
+it might represent a library or a jar file or even a whole web application.
 
 It doesn't necessarily represent a thing that must be built.
-It might represent a thing to be done such as deploying your application to a staging or enven a production environment.
+It might represent a thing to be done such as deploying your application to a staging or
+enven a production environment.
 Each project is made up of one or more tasks.
-In fact conceptually(概念的に) a project can be seen as a collection of tasks, a task represents an atomic piece of wor
-performed by the build.
+In fact conceptually(概念的に) a project can be seen as a collection of tasks, a task
+represents an atomic piece of wor performed by the build.
 
-In previous tutorials I went to some length talking about the gradle lifecycle how we had the
-initialization phase, the configuration phase, and the execution phase.
+In previous tutorials I went to some length talking about the gradle lifecycle how we had
+the initialization phase, the configuration phase, and the execution phase.
 
-Well the gradle lifecycle applies for a match to tasks as well but really only in the configuration and execution phases.
+Well the gradle lifecycle applies for a match to tasks as well but really only in the
+configuration and execution phases.
 
 So what do we do in the configuration phase?
-Well in the configuration phase we can actually create the task or define a task and we can also configure
-the task that is we can add code through closures and properties to that particular task.
-Now in the execution phase this is where we actually execute the tasks and the task performs its atomic actions for the build.
+Well in the configuration phase we can actually create the task or define a task and we 
+can also configure the task that is we can add code through closures and properties to
+that particular task.
+Now in the execution phase this is where we actually execute the tasks and the task
+performs its atomic actions for the build.
 
 ・Configuration Phase → Create/Configure Tasks 
 ・Execution Phase → Execute Tasks
@@ -452,13 +547,15 @@ Now in the execution phase this is where we actually execute the tasks and the t
 Project can contain a collection of zero or many tasks.
 But what about tasks?
 What makes up a task, a task can be mae up of zero or many actions.
-So in a similar way that a project is made up of a collection of tasks, a task itself can be made up of a collection of actions.
+So in a similar way that a project is made up of a collection of tasks, a task itself can be
+made up of a collection of actions.
 
-The task represents a single atomic piece of work for a build such as compiling classes or generating JavaDoc.
+The task represents a single atomic piece of work for a build such as compiling classes or
+generating JavaDoc.
 So each task belongs to a project.
 
-Now the collection of tasks are held in the project by the task container and it has a whole bunch of helper methods for
-creating and looking up instances of tasks.
+Now the collection of tasks are held in the project by the task container and it has a whole
+bunch of helper methods for creating and looking up instances of tasks.
 Each task has a name which can be used to refer to the task within the project that owns it.
 In a similar way a task is made up of a sequence of action objects and when a task is executed,
 each of these action objects is executed in turn.
@@ -467,18 +564,22 @@ There are two really convenient methods on the task interface, "doFirst()" and "
 There are two versions of these methods.
 The first version takes the action interface as a parameter and the second accepts a closure.
 
-Now because we're using groovy we're going to be using the clusure version of the method doFirst and doLast.
-Now by using the closure version, when we execute our task and our action, the task gets passed into the closure as a parameter.
+Now because we're using groovy we're going to be using the clusure version of the method
+doFirst and doLast.
+Now by using the closure version, when we execute our task and our action, the task gets
+passed into the closure as a parameter.
 So within the closure itself we also have access to the task that the clusure is runnig in.
-The doFirst and doLast methods also return the task and this is ideal(理想的なもの) because we can then chain method call
-so we can actually call doFirst and doLast again just using the dot notation rather than having to split it outline after line.
+The doFirst and doLast methods also return the task and this is ideal(理想的なもの) because
+we can then chain method call so we can actually call doFirst and doLast again just using
+the dot notation rather than having to split it outline after line.
 
-So this is ideal if you've got lots of actions to add to our task, it's worth noting that all this is still
-happening within the configuration phase of the gradle lifecycle.
+So this is ideal if you've got lots of actions to add to our task, it's worth noting
+that all this is still happening within the configuration phase of the gradle lifecycle.
 
-We have not yet stepped across into the execution phase so let's head over to eclipse and see how it
-can implement a task by creating some task and creating some actions using the doFirst and doLast methods
-and chaining those method calls and then let's actually start looking at executing or using the execution phase of the gradle lifecycle.
+We have not yet stepped across into the execution phase so let's head over to eclipse and
+see how it can implement a task by creating some task and creating some actions using the
+doFirst and doLast methods and chaining those method calls and then let's actually start
+looking at executing or using the execution phase of the gradle lifecycle.
 
 <<< 23. Our 1st Gradle Task ... >>>
 ～略～
@@ -496,29 +597,30 @@ If I run this now you'll see the task actually gets executed.
 And it' actually getting executed in the execution phase of the gradle lifecycle
 so when we define our task, so here we got "task space hi".
 This occurs within the configuration phase of the gradle lifecycle.
-And when we actually run that, this is the actual execution phase and we've not seen that before.
+And when we actually run that, this is the actual execution phase and we've not seen that
+before.
 That's the first time we've executen the part of the gradle lifecycle.
 
 Now this may sound like a small point but it's a really important concept to understand.
 So we configure our task in the configuration phase of the gradle lifecycle.
-So that's the place where we add our code, in other words our closures and defining our properties.
-But when we actually want that code to run and to perform the task, we've told it to perform,
-then that gets done in the execution phase.
+So that's the place where we add our code, in other words our closures and defining our
+properties. But when we actually want that code to run and to perform the task, we've told
+it to perform, then that gets done in the execution phase.
 
 ～略～
 So how can we add some code to out task to make actually do something?
-Well as we saw in the last tutorial we use the doFirst and doLast methods and we set the definition
-of those (up) in a configuration phase and if we go over to the gradle JavaDocs we actually look at
-the API and see the definition for doFirst and doLast.
+Well as we saw in the last tutorial we use the doFirst and doLast methods and we set the
+definition of those (up) in a configuration phase and if we go over to the gradle JavaDocs
+we actually look at the API and see the definition for doFirst and doLast.
 doFirst accepts an action which happens to be a closure
 and the same goes also for the doLast.
 
-So we can call the actual doFirst and doLast method passing in a closure that contains the code we
-actually gradle to perform.
+So we can call the actual doFirst and doLast method passing in a closure that contains the
+code we actually gradle to perform.
 
 Now with the power of groovy is our programming language in gradle,
-we can now access our newly created task as a property and it's a property on the project object,
-and we can access it using the dot notation.
+we can now access our newly created task as a property and it's a property on the project
+object, and we can access it using the dot notation.
 So we can say "project.hi".
 
 ---
@@ -526,11 +628,14 @@ logger.info ">>> build.gradle --> This is executed during the configuration phas
 task hi
 project.hi
 ---
-This may seem a little strange if you're coming from a Java background but in the groovy world this is a natural thing to do.
+This may seem a little strange if you're coming from a Java background but in the
+groovy world this is a natural thing to do.
 And it's to do with the way groovy deals with maps and properties.
 
-So once we have access to our task we can configure it to use the (doFirst and the doLast) method.
-So we just again use the dot notation followed by the method name doLast, and we passed the doLast method of closure.
+So once we have access to our task we can configure it to use the
+(doFirst and the doLast) method.
+So we just again use the dot notation followed by the method name doLast, and we passed the
+doLast method of closure.
 ---
 logger.info ">>> build.gradle --> This is executed during the configuration phase  - timestamp @ ${gradle.timestamp()}"
 task hi
@@ -539,13 +644,15 @@ project.hi.doLast{
 }
 ---
 And in this closure I'm just going to write out "Hi!" to the logger.
-So this time when we run our build you can see we're actually writing out the word "Hi!" to the logger.
+So this time when we run our build you can see we're actually writing out the word "Hi!"
+to the logger.
 This is actually happening during the execution phase of the gradle lifecycle.
-So setting up doLast is in the configuration phase, but the actual task of executing the doLast method 
-occurs the execution phase of the lifecycle.
+So setting up doLast is in the configuration phase, but the actual task of executing the
+doLast method occurs the execution phase of the lifecycle.
 
 We can also configure our task while we create it.
-What I mean by that, (well) we can actually pass in our configuration closure at the same time as using the task keyword.
+What I mean by that, (well) we can actually pass in our configuration closure at the same
+time as using the task keyword.
 ---
 defaultTasks "hello"
 logger.info ">>> build.gradle --> This is executed during the configuration phase  - timestamp @ ${gradle.timestamp()}"
@@ -575,52 +682,61 @@ So I'm gonna set the description property and also the group property.
 Now description is just some meaningful description of what the task is all about.
 And the group, well basically we can assign our task to a group of other tasks.
 So in this case I'm going to assign this task to the "Welcome" group.
-Now once we've done this, we can actually access our properties on the hello task and we just do that
-using the dotnotation so we access the hello task as we did before.
+Now once we've done this, we can actually access our properties on the hello task and we
+just do that using the dotnotation so we access the hello task as we did before.
 And then we just do dot description and we can do exactly the same for the group.
 And as you can see I'm just using the logger to print those out to the console.
 
-Now if you remember I mentioned that when we actually writing the doFirst and doLast methods,
-they actually happen within the configuration phase of the gradle lifecycle and being configuration
-that means we can actually put them into this configuration closure as well.
+Now if you remember I mentioned that when we actually writing the doFirst and doLast
+methods, they actually happen within the configuration phase of the gradle lifecycle
+and being configuration that means we can actually put them into this configuration
+closure as well.
 
-So here I'm setting the actual properties for description and group where I can also add our method calls
-to doFirst and doLast.
-So basically within the curly braces of the closure I can just write the code to the doLast method,
-and also passing the closure to that.
+So here I'm setting the actual properties for description and group where I can also add
+our method calls to doFirst and doLast.
+So basically within the curly braces of the closure I can just write the code to the
+doLast method, and also passing the closure to that.
 
-Now one thing I notice is that I'm not using a dot notation here because basically the actual delegate object
-behind the scenes for this configuration closure is the task object.
+Now one thing I notice is that I'm not using a dot notation here because basically the
+actual delegate object behind the scenes for this configuration closure is the task object.
 
-So when we're actually accessing properties or methods, it's implied we're actually accessing those property
-and methods on the delegate object.
-And in this instance the delegate object is equal to the hello task object itself and you can see
-I'm using this even in the output string in the doLast where I'm accessing the name through interpolation.
+So when we're actually accessing properties or methods, it's implied we're actually
+accessing those property and methods on the delegate object.
+And in this instance the delegate object is equal to the hello task object itself and you
+can see I'm using this even in the output string in the doLast where I'm accessing the
+name through interpolation.
 
-I talked about the delegate object and how powerful this technique is in the groovy part of the cource.
+I talked about the delegate object and how powerful this technique is in the groovy part
+of the cource.
 And this is just an example of it being used.
 
-So let's go ahead and also create a call to doFirst method and I'm just gonna output another string.
+So let's go ahead and also create a call to doFirst method and I'm just gonna output
+another string.
 So when we execute this task what order you think the output will be here?
 
 As the name implies it says do this first.
 So that method always gets invoked first.
 
 ～略～
-...add a default task in our build.gradle file and what we'll do is we'll include the hello task.
+...add a default task in our build.gradle file and what we'll do is we'll include the
+hello task.
 So we don't need to actually configure our run configuration.
 We can actually just modify the build.gradle file.
 
 ～略～
-You also notice in the gradle executions tab on the buildship plugin.(on eclipse) actually shows the tasks that have run.
+You also notice in the gradle executions tab on the buildship plugin.(on eclipse) actually
+shows the tasks that have run.
 And you can see with code on hello.
 We also can see the actual actions that have been performed.
-Just notice the order here, you can see the doFirst action was done first followed by the doLast.
+Just notice the order here, you can see the doFirst action was done first followed by the
+doLast.
 
 <<< 24. Configuring Tasks >>>
 ～略～
-Every time we called doFirst, the closure we pass in is always guranteed to be the first closure that actually gets executed.
-And when we called doLast, that closure is guranteed to be the last action to be executed in the tasks actions list.
+Every time we called doFirst, the closure we pass in is always guranteed to be the first
+closure that actually gets executed.
+And when we called doLast, that closure is guranteed to be the last action to be executed
+in the tasks actions list.
 -------------------
 task hello{
 	doFirst{
@@ -651,13 +767,16 @@ My name is: hello and thsi is my 3rd defined action.
 My name is: hello and thsi is my 4th defined action.
 -------------------
 
-Something to take note as well, is that the return type of the doFirst and doLast method is that of "Task" (object).
-So each time we call these methods they actually return the "Task" that the method is being invoked on.
+Something to take note as well, is that the return type of the doFirst and doLast method
+is that of "Task" (object).
+So each time we call these methods they actually return the "Task" that the method is
+being invoked on.
 
 So how does that work?
 Well let's start with a new example.
-It's pretty much exact the same as the original but this time what I'm going to do is each time I call
-doFirst and doLast method, I'm actually be going to chain another doLast or doFirst method onto using the dot notation.
+It's pretty much exact the same as the original but this time what I'm going to do is each
+time I call doFirst and doLast method, I'm actually be going to chain another doLast or
+doFirst method onto using the dot notation.
 
 ---------------------
 task hello2{
@@ -682,8 +801,8 @@ My name is: hello2 and thsi is my 2nd defined action.
 My name is: hello2 and thsi is my 3rd defined action.
 My name is: hello2 and thsi is my 4th defined action.
 ------------------------
-I can add as many actions as I wish so hello2 is now a rewritten version of the hello task and you'll
-see I'm chaining all that doFirst and doLast methods again.
+I can add as many actions as I wish so hello2 is now a rewritten version of the hello task
+and you'll see I'm chaining all that doFirst and doLast methods again.
 You'll notice the outputs identical because basically they're in exactly the same thing.
 This can help make our code more consise and readable.
 And it's also a feature of the DSL or domain specific language, that's gradle provides us.
@@ -691,7 +810,8 @@ And it's also a feature of the DSL or domain specific language, that's gradle pr
 
 <<< 25. Introduction to 'dependsOn' >>>
 dependsOn キーワードを使いtaskの順番を定義することが可能。
-異なる場所(task)で同じtaskをdependsOnで指定すると、１度しか呼ばれない。２回目の方は呼ばれない。
+異なる場所(task)で同じtaskをdependsOnで指定すると、１度しか呼ばれない。
+２回目の方は呼ばれない。
 
 
 <<< 26. Filtering tasks with 'dependsOn' >>>
@@ -699,49 +819,56 @@ dependsOn キーワードを使いtaskの順番を定義することが可能。
 ...We don't have to use just the hard coded name of the task.
 We can also use closure and that's what I'm going to look at in this tutorial.
 When evaluating the closure has passed the task whose dependencies are being caluculated.
-Now the closure should return a single task or a collection of task object which then treat it as the dependencies of the task.
+Now the closure should return a single task or a collection of task object which then treat
+it as the dependencies of the task.
 ～略～
-Just keep in mind that the result of the closure needs to be either a single task object or a collection of task objects
+Just keep in mind that the result of the closure needs to be either a single task object
+or a collection of task objects
 otherwise we'll get a runtime exception.
 So how do we query the tasks that are held in our project?
 Well there's a property on the project called "Tasks".
 On a "Task" property, there is a type "TaskContainer".
-Now the TaskContainer Interface contains a whole bunch of convenient methods for us eithier for
-creating or for searching the tasks held by our project.
+Now the TaskContainer Interface contains a whole bunch of convenient methods for us eithier
+for creating or for searching the tasks held by our project.
 Now remember these tasks are specific for this particular project.
-Now by searching the API documentation we can see that our TaskContainer Interface actually inherits
-from a whole bunch of other interfaces.
-And one of those interfaces is "NamedDomainObjectSet" and you'll find there a method called "findAll".
-...it returns a collection of objects in this collection that meets the given closure specification.
-So in other words we can provide a closure that acts like a filter and it will filter the tasks depending
-upon the code we provide in that closure ant return as a set.
+Now by searching the API documentation we can see that our TaskContainer Interface actually
+inherits from a whole bunch of other interfaces.
+And one of those interfaces is "NamedDomainObjectSet" and you'll find there a method called
+"findAll"....it returns a collection of objects in this collection that meets the given
+closure specification.
+So in other words we can provide a closure that acts like a filter and it will filter the
+tasks depending upon the code we provide in that closure ant return as a set.
 Now it's a unique set of objects.
 This is ideal for us because our dependency needs either one or a collection of tasks.
-Now you could always remenber that the public methods and property exposed by the various domain objects
-in gradle we have access to.
+Now you could always remenber that the public methods and property exposed by the various
+domain objects in gradle we have access to.
 So it's perfectly valid for us to use the "findAll" method. 
 Now to get access to it, we can fully qualified path using the dot notation so it's like 
-"project.tasks.findAll" and then we just need to use the curly braces to proveide the closure itself.
+"project.tasks.findAll" and then we just need to use the curly braces to proveide the
+closure itself.
 -------------------
 logger.info ">>> ${project.tasks.findAll{} }"
 -------------------
-Remenber the "Project" (Object) is also implied so without actually physically have to right "project" each time.
+Remenber the "Project" (Object) is also implied so without actually physically have to right
+"project" each time.
 I'm just showing it here as part of the example.
 So it's my requirement to basic just create dependency on "doStep2".
 So I need to scan through all the tasks looking for other tasks with the name of "doStep2".
-So the closure provides us access to the task and we can assign that tha name task and once we have
-that we can query the "name" property on the Task(object) and then we can see if that name stats with in this case "doStep2".
+So the closure provides us access to the task and we can assign that tha name task and
+once we have
+that we can query the "name" property on the Task(object) and then we can see if that name
+stats with in this case "doStep2".
 
 -------------------
-logger.info ">>> ${ project.tasks.findAll { task -> task.name.startsWith('doStep2')  }  }"
+logger.info ">>> ${ project.tasks.findAll { task -> task.name.startsWith('doStep2')  } }"
 >>>>>>>>>> [task ':doStep2']
 
 logger.info ">>> ${ project.tasks.findAll { task -> task.name.startsWith('do')  }  }"
 >>>>>>>>>> [task ':doFinished', task ':doSomethingInTheMiddle', task ':doStartProcess', task ':doStep2']
 -------------------
 
-So what happen here, the method findAll will returns all the tasks which starts with the name "doStep2"
-and print results to the console.
+So what happen here, the method findAll will returns all the tasks which starts with
+the name "doStep2" and print results to the console.
 And as you can see from the output that's exactly what happens.
 So now we've proven that our closure works with the findAll method.
 
@@ -751,19 +878,20 @@ So now we've proven that our closure works with the findAll method.
 OK
 
 <<< 28. The task Dependency Graph >>>
-Gradle builds are directed acyclic graph(DAG 有向非巡回グラフ) for the task that we have defined
-and set up during the configuration phase of the build lifecycle, by the time we get to the execution phase
-of the build life cycle.
+Gradle builds are directed acyclic graph(DAG 有向非巡回グラフ) for the task that we have
+defined and set up during the configuration phase of the build lifecycle, by the time we
+get to the execution phase of the build life cycle.
 
 <<< 29. How to 'Hook' into the Task Dependency Graph >>>
 what's the advantage of having access to the task Graph ?
 what's the point in knowing the task and having access to them during the build process?
-well there may be times when you want to base on conditional logic ant that conditional logic may be
-dependent on a task existing in your build process or not.
+well there may be times when you want to base on conditional logic ant that conditional
+logic may be dependent on a task existing in your build process or not.
 
 <<< 30. Introduction to Plugins >>>
 この後のチュートリアルでjava , java-library ,二つのcore plugin について説明する。
-Syntax for setting up plugins is just to use the word "pligins" followed by an open and close curly brace.
+Syntax for setting up plugins is just to use the word "pligins" followed by an open and
+close curly brace.
 
 plugins {
 	id 'java'
@@ -781,20 +909,28 @@ ok
 
 <<< 34. 3rd Part Dependencies >>>
 ～略～
-I delegate out to an Apache Commons class to do that for us and that's one of the reasons we're seeing so many red markers here.
-Now the red markers represent arrows Java and Eclipse tried to compile our application can't find one or two other dependencies it needs to run.
-And that's what we are start looking at this tutorial how can we get gradle to include and manage our dependencies for us.
-So if a gradle to do this for us it needs a way of actually getting hold of the artifact or jar files it needs to compile against.
+I delegate out to an Apache Commons class to do that for us and that's one of the reasons
+we're seeing so many red markers here.
+Now the red markers represent arrows Java and Eclipse tried to compile our application can't
+find one or two other dependencies it needs to run.
+And that's what we are start looking at this tutorial how can we get gradle to include
+and manage our dependencies for us.
+So if a gradle to do this for us it needs a way of actually getting hold of the artifact or
+jar files it needs to compile against.
 And there is a mechanism for doing that.
 And it's called a repository.
-If you've used the build tool in the past such as maven, this consept shouldn't be new to you.
-But if it is, basically, repository is a bunch of servers in the Internet somewhere the hold or chache all the artifacts you need to build 
-your Java applications from and one of the popular ones to use is maven central and I'll be using that in this tutorial.
+If you've used the build tool in the past such as maven, this consept shouldn't be new
+to you.
+But if it is, basically, repository is a bunch of servers in the Internet somewhere the
+hold or chache all the artifacts you need to build 
+your Java applications from and one of the popular ones to use is maven central and I'll
+be using that in this tutorial.
 
 ～略～
 
 So how do we get access to a repository?
-We include the repositories block and basic that's the repositories word followed by an open and close curly brace.
+We include the repositories block and basic that's the repositories word followed by an
+open and close curly brace.
 But something special carries on here.
 Because within the curly braces that actually represents a clusure..
 And it runs a different context to the code that's outside of it.
@@ -804,64 +940,83 @@ Once we go within the curly braces within the "repositories" the delegate object
 So in other words, we have a different context.
 Now within the repositories context, we have access to a whole bunch of different methods.
 And one of those methods is "mavenCentral".
-So to get access to mavenCentral, readers use a method on the delegate object called mavenCentral followed by open and close parentheses.
+So to get access to mavenCentral, readers use a method on the delegate object called
+mavenCentral followed by open and close parentheses.
 So in fact we're actually calling a method here.
-So this is exactly the same as saying delegate object dot mavenCentral because the reality is, we're
-actually calling the mavenCentral method on the delegate object itself.
+So this is exactly the same as saying delegate object dot mavenCentral because the reality
+is, we're actually calling the mavenCentral method on the delegate object itself.
 ---イメージ(下記のdelegateは例。架空のobject。)
 delegate.mavenCentral()
 ---
 So what is the delegate object ?
-So let's head over to the gradle documentation and see what it can tell us about the repositories block.
+So let's head over to the gradle documentation and see what it can tell us about the
+repositories block.
 
 https://docs.gradle.org/current/dsl/#dsl
 Well in the gradle build language reference, it gives you all about the links
-for the various build scripts blocks that gradle provides for this plugin and by clicking on the link,
+for the various build scripts blocks that gradle provides for this plugin and by clicking
+on the link,
 there for a "repositories", it takes us to the section on it.
 And you'll see the actual delegate object is "RepositoryHandler".
 So we are actually using an instance of "RepositoryHandler" which is the delegate object.
 In fact actually tells you that "Delegates to:" RepositoryHandler
----https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:repositories(groovy.lang.Closure)
+
+---
+https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:repositories(groovy.lang.Closure)
 Delegates to:
 RepositoryHandler from repositories
 ---
 
-So once we have this information we can then use it by looking at the API for the RepositoryHandler instance.
-Now once we've got the actual documentation for the repository handler, we can scan for and browse the various methods available to us
+So once we have this information we can then use it by looking at the API for the
+RepositoryHandler instance.
+Now once we've got the actual documentation for the repository handler, we can scan
+for and browse the various methods available to us
 and the descriptions.
 https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.dsl.RepositoryHandler.html
-And when we scroll down we see our "mavenCentral" method there and we click on that and actually gives us a
-really useful description about what it is and the actual URL for the Maven Central and even gives us an example of actually
+And when we scroll down we see our "mavenCentral" method there and we click on that and
+actually gives us a
+really useful description about what it is and the actual URL for the Maven Central and
+even gives us an example of actually
 how to use it in our build script, so we can copy and paste this into our own build script.
 https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.dsl.RepositoryHandler.html#org.gradle.api.artifacts.dsl.RepositoryHandler:mavenCentral()
 
-Now having access to a repository which contains all the artifacts we need is unfortunately only part of the story.
-The other part of the story is that we need to tell gradle the actual artifacts we need for our particular project and
-our particular circumstances and a way to do that is to use dependencies and we use the dependencies block.
+Now having access to a repository which contains all the artifacts we need is unfortunately
+only part of the story.
+The other part of the story is that we need to tell gradle the actual artifacts we need for
+our particular project and
+our particular circumstances and a way to do that is to use dependencies and we use the
+dependencies block.
 https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:dependencies(groovy.lang.Closure)
 Now this works in exactly the same way as the repository block, it too has a delegate object,
 and in this case the delegate object is "DependencyHandler".
 In fact the documentation says here delegates to DependencyHandler.
 ～略～
 
-So let's head over to eclipse and include a dependencies block into our build script and we can see how we can go ahead and configure it.
+So let's head over to eclipse and include a dependencies block into our build script and we
+can see how we can go ahead and configure it.
 
-So including dependencies block is fairly(極めて) straightforward, it's just the keyword "dependencies" followed by the 
+So including dependencies block is fairly(極めて) straightforward, it's just the keyword
+"dependencies" followed by the 
 open and close curly braces for the closure.
-Once we're in these kind of braces we're actually using the "DependencyHandler" (crue?) the keyword implementation and then
+Once we're in these kind of braces we're actually using the "DependencyHandler" (crue?)
+the keyword implementation and then
 we follow it by the coordinates which identify the actual artifact it is we want to use.
-Now if you are use to using the Maven, you remember that the Maven build tool also has coordinates
-and (fast?) known as the Maven coordinates or gradle is very much the same.
+Now if you are use to using the Maven, you remember that the Maven build tool also has
+coordinates and (fast?) known as the Maven coordinates or gradle is very much the same.
 In fact in gradle it's the group name and the version.
 
 So how do we actually locate the jar files or the artifact we want to use ?
-A really good WEB site is http://www.mvnrepository.com/ and you can do a search there for a particular component you want to use
-or you are using to find out the latest version or just to get the gradle coordinates for that particular artifact.
+A really good WEB site is http://www.mvnrepository.com/ and you can do a search there for
+a particular component you want to use
+or you are using to find out the latest version or just to get the gradle coordinates for
+that particular artifact.
 
 Now for this application, I hope to be using the Apache commons maths jar file or artifact.
-So I want to get the latest version of that, I just to a search on it and the latest version is 3.6,
+So I want to get the latest version of that, I just to a search on it and the latest
+version is 3.6,
 there we are (within?) Maven Central repository.
-So I just click on the link here for 3.6.1 and you can see here then I've got a tab that gives us the Maven dependency,
+So I just click on the link here for 3.6.1 and you can see here then I've got a tab that
+gives us the Maven dependency,
 but we're not interested in maven here we want the gradle coordinates.
 You see it says 
 ---
@@ -880,41 +1035,57 @@ dependencies{
 	testImplementation 'junit:junit:4.12'
 }
 ---
-We have that's a shortcut way of doing things and I'm going to use this standard for the rest of the cource.
+We have that's a shortcut way of doing things and I'm going to use this standard for the
+rest of the cource.
 But remenber we don't use "compile" or "compile test" anymore,
-we use "implementation" and "implementation test" and I'll be talking about that in a bit more detail later on the cource.
-So now all that's left to do is to actually include a "test implementation" of the Junit ...
+we use "implementation" and "implementation test" and I'll be talking about that in a
+bit more detail later on the cource.
+So now all that's left to do is to actually include a "test implementation" of the Junit...
 ～略　Junitの定義も追加～ 
 
 So really all that's left now is to do a build, and I want to do a clean, and then a build,
-so I'm going to be using the clean task followed by the build lifecycle task and that's what I'll be looking at in the next tutorial.
+so I'm going to be using the clean task followed by the build lifecycle task and that's
+what I'll be looking at in the next tutorial.
 
 <<< 35. Building our 1st java application >>>
-In this tutorial, I' gonna start looking to perform the actual build and I'm going to be using the build ship plugin
-so I go to the gradle task tab, and select the clean task and do a right click and run task
-and I do the same again for the build task and select that and then there are a run task and here 
-you can see build ship is calling the compile java task.
-And this is really great here because it shows the actual tasks being executed and also how long it takes to execute those tasks.
+In this tutorial, I' gonna start looking to perform the actual build and I'm going to be
+using the build ship plugin so I go to the gradle task tab, and select the clean task
+and do a right click and run task and I do the same again for the build task and select
+that and then there are a run task and here you can see build ship is calling the compile
+java task.
+And this is really great here because it shows the actual tasks being executed and also
+how long it takes to execute those tasks.
 And it gives the full lifecycle and details.
-So let's go ahead and refresh eclipse and then we can also do a gradle refresh and it gets everything to synchronize it self up
+So let's go ahead and refresh eclipse and then we can also do a gradle refresh and it gets
+everything to synchronize it self up
 with the file system.
 Now part of the build lifecycle is the task "jar".
-Now the task jar actually bulids us a jar file which contains our application. So where does that live ?
-Well we're going to need to go over to the navigator explorer and do that we just select the navigator tab next to the explorler tab
-the explorer tab the jar file itself lives in the directory "libs" lives in the directory "libs" lives in the "build" directory.
+Now the task jar actually bulids us a jar file which contains our application. So where
+does that live ?
+Well we're going to need to go over to the navigator explorer and do that we just select
+the navigator tab next to the explorler tab
+the explorer tab the jar file itself lives in the directory "libs" lives in the directory
+"libs" lives in the "build" directory.
 Now this is part of the gradle standard our jar files live in the "libs" directory.
 ～略～
-So if we go into the folder onto the build folder called "reports" you'll find there's also another folder "tests".
-When we drill down that down we'll come across an index.html file and when we open it up in your browser
-you can see this is the result of running our unit tests and you can see there 100 percent successful.
+So if we go into the folder onto the build folder called "reports" you'll find there's
+also another folder "tests".
+When we drill down that down we'll come across an index.html file and when we open it
+up in your browser
+you can see this is the result of running our unit tests and you can see there
+100 percent successful.
 Now this comes out of the box of gradle.
 This is part of the build lifecycle and it comes as part of the Java plugin.
-～初回と２回目以降だと、２回目以降の方が処理時間が短く済む。コンパイルだと、ソースが変わってなければコンパイル結果が存在することを
-　確認して、コンパイル処理を実行しない（時間節約） 。ビルド実行前にcleanすると、初回実行時と同じになって時間がかかる～
+～初回と２回目以降だと、２回目以降の方が処理時間が短く済む。コンパイルだと、
+ソースが変わってなければコンパイル結果が存在することを
+確認して、コンパイル処理を実行しない（時間節約） 。ビルド実行前にcleanすると、
+初回実行時と同じになって時間がかかる～
 ～javadoc生成の説明～
 
-So you see gradle provides some really convenient task straight out the box(すぐに使える) and they're all available within the Java Plugin.
-Now was well worth at this point just to review how many lines of code or gradle DSL if you like is taken to get this far when you compare
+So you see gradle provides some really convenient task straight out the box(すぐに使える)
+and they're all available within the Java Plugin.
+Now was well worth at this point just to review how many lines of code or gradle DSL
+if you like is taken to get this far when you compare
 that to an equivalent(同等の) pom file with Maven.
 It's quite fantastic.
 We've literally got three sections here ... and that's it.
@@ -933,32 +1104,40 @@ dependencies{
 }
 ------------------------------
 The rest of it comes straight out the box for us.
-So in the next tutorial, ...I need to create a standalone executable jar file and gradle doesn't provide this functionality out of the box.
+So in the next tutorial, ...I need to create a standalone executable jar file and gradle
+doesn't provide this functionality out of the box.
 So we can actually add this functionality ourselves by using some groovy code.
 
 <<< 36. Assembling our Java application >>>
 ～略～
-If we look at the completed projects jar file, you'll notice the names a little bit different.
+If we look at the completed projects jar file, you'll notice the names a little bit
+different.
 It's got the "-all" included but also their contents is different.
 We don't just have the application in the jar.
 We also have the actual dependencies.
-In this case it's from the Apache comments mass library that is all being packages up and included.
-Now when we compare that to the original gradlejava1-initial.jar , we just basically have a folder for 
+In this case it's from the Apache comments mass library that is all being packages up and
+included.
+Now when we compare that to the original gradlejava1-initial.jar , we just basically have
+a folder for 
 the application and compile classes.
 
 Another thing that's also different is the actual manifest file(MANIFEST.MF) itself.
-In the completed version, it contains the "Main-Class" that needs to be invoked when we run it from the command line
+In the completed version, it contains the "Main-Class" that needs to be invoked when we
+run it from the command line
 and we need to include that too.
 
 Ok, so looking at our requirements, we've got three things we want to do.
-First of all we need to change the name of the jar file itself and we also need to change the contents of the manifest file.
-And finally we need to find a way of including in the jar file all the dependencies in order for it to run.
+First of all we need to change the name of the jar file itself and we also need to change
+the contents of the manifest file.
+And finally we need to find a way of including in the jar file all the dependencies in
+order for it to run.
 
-Now gradle doesn't provide us an out of box solution(インストールして設定作業ほとんどせずにすぐ使える) here.
+Now gradle doesn't provide us an out of box solution
+(インストールして設定作業ほとんどせずにすぐ使える) here.
 So we can have to hand craft something ourselves.
 Now all about my requirements here, all three of them are to do with a jar file.
-So be a really good starting point to actually start looking at the Jar task to see what properties and methods are
-available to us to help us create a solution.
+So be a really good starting point to actually start looking at the Jar task to see what
+properties and methods are available to us to help us create a solution.
 So what better place to start than gradle online documentation.
 
 I'm browsing online documentation for the Jar task and it gives me a great view of all the 
@@ -971,16 +1150,20 @@ So by changing that property will also be changing the name of the jar file.
 That's something we can bear in mind.
 Also we need to manipulate or edit our manifest.
 Now there is a method here "manifest" it takes a configuration closure.
-Again, this is something worth bearing in mind, and we may try to use that a little bit later on.
-Well having this knowledge from the Java docs is all well and good, but how does this translate across to our buld.gradle file?
+Again, this is something worth bearing in mind, and we may try to use that a little bit
+later on.
+Well having this knowledge from the Java docs is all well and good, but how does this
+translate across to our buld.gradle file?
 
-Well in our build.gradle file, we need to edit the Jar task itself and to do that we just get access to the Jar task 
-which is simply just using the word "jar" and that gives us access to the jar task and then we wrap the configuration
-in open and close curly braces.
+Well in our build.gradle file, we need to edit the Jar task itself and to do that we just
+get access to the Jar task 
+which is simply just using the word "jar" and that gives us access to the jar task and
+then we wrap the configuration in open and close curly braces.
 
 Ok, so let's go ahead and do that just to print out the baseName to the console.
-So here I've got access to the jar task and within the curly braces I've used the println and within the curly braces
-I've used the println and I'm really just going to write out the baseName to the console and run that see what happens.
+So here I've got access to the jar task and within the curly braces I've used the println
+and within the curly braces I've used the println and I'm really just going to write out
+the baseName to the console and run that see what happens.
 
 jar {
 	println ">>>> baseName: $baseName"
@@ -990,14 +1173,17 @@ jar {
 ---
 >>>> baseName: gradlejava1-initial
 ---
-Well that's really good because we actually reading from the property baseName, that means we can also write to that property as well.
+Well that's really good because we actually reading from the property baseName, that means
+we can also write to that property as well.
 And that's what we're going to do next.
 So to get access to the property, we can just use property itself.
 And if you remember that maps to the delegate object, and in this case it's the Jar task.
 So it's like saying jar.baseName = ... and then the value we want to assign the baseName.
-So in this example I want to use the project name, and also include a "-all" because I'm going to include all dependencies.
-Now don't forget we need to use the dollar sign and wrap the whole thing in double quote and then when we rerun our task
-we'll see that a different baseName is being output to the console.
+So in this example I want to use the project name, and also include a "-all" because I'm
+going to include all dependencies.
+Now don't forget we need to use the dollar sign and wrap the whole thing in double quote
+and then when we rerun our task we'll see that a different baseName is being output to
+the console.
 
 jar {
 	baseName = "$project.name-all"
@@ -1011,36 +1197,43 @@ jar {
 
 ～略～
 ... next requirement I want to access a method.
-If you remember back to the java doc it's actually the manifest method that takes in a configuration clusure.
+If you remember back to the java doc it's actually the manifest method that takes in a
+configuration clusure.
 And it's this method that allows us to configure our manifest file.
-So by reading the Java doc for this method it gives us a really good clue actually tells us that a manifest object
-is passed to the closure as its delegate.
-So in other words once we actually use the method manifest, we also have access to the manifest object by default as the delegate.
+So by reading the Java doc for this method it gives us a really good clue actually tells us
+that a manifest object is passed to the closure as its delegate.
+So in other words once we actually use the method manifest, we also have access to the
+manifest object by default as the delegate.
 
 Let's have a look at the manifest interface and see what methods are available to us.
 That will help us set the values in our manifest file.
-Now browsing the documentation for the manifest interface really helps because straight away we can see
-as a property on the interface called attribute and it takes in a map.
-Now the key for the map needs to be a string, but the actual value can be any object but we're going to use a string anyway.
-Gradle will be calling the toString method on a string which will just be the string we're providing.
+Now browsing the documentation for the manifest interface really helps because straight
+away we can see as a property on the interface called attribute and it takes in a map.
+Now the key for the map needs to be a string, but the actual value can be any object but
+we're going to use a string anyway.
+Gradle will be calling the toString method on a string which will just be the string
+we're providing.
 So that's how we get our attributes or values into our manifest file, we create a map.
 So how does that translate across to our build.gradle file ?
-Well we access the attributes property on the manifest object and we pass the attributes property a map 
+Well we access the attributes property on the manifest object and we pass the attributes
+property a map 
 so to begin with let's just access the property of attributes.
 And now we can start thinking about how to pass in a map.
 
-Well a map is a key value pair and we know the key needs to be a string so we can create a string
-and then we separate it with a colon.
-And then we can pass it the value of our object in the value is going to be a string as well.
-So both strings are going to be wrapped in single quotes here.
-The value of the first attribute for a manifest file is going to be the 'Implementation-Title'
-and I'm going to pass that the value of 'Gradle all inclusive jar'.
+Well a map is a key value pair and we know the key needs to be a string so we can create
+a string and then we separate it with a colon.
+And then we can pass it the value of our object in the value is going to be a string
+as well. So both strings are going to be wrapped in single quotes here.
+The value of the first attribute for a manifest file is going to be the
+'Implementation-Title' and I'm going to pass that the value of 'Gradle all inclusive jar'.
 The keys themselves come from the manifest file standard which was developed for Java.
-So I'm not just making these names up and if I did that runtime they would fail with a runtime exception.
+So I'm not just making these names up and if I did that runtime they would fail with a
+runtime exception.
 So now I'm using the 'Implementation-Version'.
 I'm including the version number and then 'Created-By' just passing "denofprogramming".
-And then finally include the 'Main-Class' that's going to be used to actually run our application and 
-it's got to be fully qualified path named so it's 'com.denofprogramming.random.App'
+And then finally include the 'Main-Class' that's going to be used to actually run our
+application and it's got to be fully qualified path named so it's
+'com.denofprogramming.random.App'
 
 ---------
 jar {
@@ -1059,8 +1252,8 @@ jar {
 Now the version and also the group for the project,
 I want to make a little bit more meaningful.
 Make this a snapshot version.
-And to change our property actually lives on the project (object) I'm going to use a fully qualified name here 
-it's just for clarity.
+And to change our property actually lives on the project (object) I'm going to use a fully
+qualified name here it's just for clarity.
 So it's going to be a '0.0.1-SNAPSHOT'
 
 And also I'm going to assign a group because this is good practice too
@@ -1078,9 +1271,11 @@ So it's really for clarity's sake that the version is coming from the project ob
 Let's go ahead and test this out.
 I'm just gonnna print the console the basename and also the attributes on the manifest.
 ～略～
-I'm going to be printing to the console the contents of the attributes property that lives on the manifest object.
-Now don't forget to use the dollar sign here when you access the attributes on the manifest object and 
-also remember to use double quotes not single quotes when you wrapped the entire string, otherwise it won't work.
+I'm going to be printing to the console the contents of the attributes property that lives
+on the manifest object.
+Now don't forget to use the dollar sign here when you access the attributes on the manifest
+object and  also remember to use double quotes not single quotes when you wrapped the entire
+string, otherwise it won't work.
 ---
 jar {
 	baseName = "$project.name-all"
@@ -1098,7 +1293,7 @@ jar {
 }
 ---
 >>>> baseName: gradlejava1-initial-all
->>>> manifest.attributes: [Manifest-Version:1.0, Implementation-Title:Gradle all inclusive jar, Implementation-Version:0.0.1-SNAPSHOT, Created-By:denofprogramming, Main-Class:com.denofprogramming.random.App]
+>>>> manifest.attributes: [Manifest-Version:1.0, Implementation-Title:Gradle all inclusive jar,Implementation-Version:0.0.1-SNAPSHOT, Created-By:denofprogramming, Main-Class:com.denofprogramming.random.App]
 ---
 ここまでで、jarファイルの名前がgradlejava1-initial-all-0.0.1-SNAPSHOT.jarになり、
 マニフェストファイルに上記が記載されるが、
@@ -1108,18 +1303,22 @@ dependencyはまだ含まれない。
 <<< 37. Assembling our Java application Part2 >>>
 ～略～
 How do we get our dependencies included ?
-Well to help us work out what it is we need to do, it's best to consult the gradle documentation in particular for the Jar task itself
+Well to help us work out what it is we need to do, it's best to consult the gradle
+documentation in particular for the Jar task itself
 
 https://docs.gradle.org/current/dsl/org.gradle.api.tasks.bundling.Jar.html
 
-Now when we scroll down we see one of the method called "from" and "from" takes a "sourcePaths".
-In fact when you read the description it says "Specifies source files or directories for a copy" .
+Now when we scroll down we see one of the method called "from" and "from" takes a
+"sourcePaths".
+In fact when you read the description it says "Specifies source files or directories
+for a copy" .
 In fact that's exactly what we want to do.
 We want to copy files into our jar file.
 So this is exactly what we need.
 But how do we specify which files to copy ?
 Well this is the power of using groovy and gradle together.
-We cannot provide a closure that will actually return us all the files we want to be included into our jar file.
+We cannot provide a closure that will actually return us all the files we want to be
+included into our jar file.
 But how can we determine which files it is ?
 We want to include or bundle up into our jar file.
 Well gradle is our build system and gradle already has this information.
@@ -1128,12 +1327,15 @@ So it kind of make sense really, that we can use the gradle API to help us here.
 In fact on the Project object itself there is a property called "configurations".
 https://docs.gradle.org/current/dsl/org.gradle.api.Project.html
 and "configurations" returns us a configuration container.
-And that container contains all the information we need, in particular the dependencies our project has.
-So it always make sense to reference the documentation particularly for the class you're intersted in,
-as it may provide some extra clues.
+And that container contains all the information we need, in particular the dependencies
+our project has.
+So it always make sense to reference the documentation particularly for the class you're
+intersted in, as it may provide some extra clues.
 In fact the documentation for the configuration container gives us a few examples.
-In fact one example it shows us exactly how to get the information we want, which of the dependencies for our project.
-Here the example shows copying all dependencies attached to compile into a particular folder.
+In fact one example it shows us exactly how to get the information we want, which of the
+dependencies for our project.
+Here the example shows copying all dependencies attached to compile into a particular
+folder.
 
 -----
 //copying all dependencies attached to 'compileClasspath' into a specific folder
@@ -1143,25 +1345,32 @@ task copyAllDependencies(type: Copy) {
   into 'allLibs'
 }
 -----
-So we can use "configurations.compileClasspath"    ←gradle旧バージョンでは "configurations.compile" と思われる。
+So we can use "configurations.compileClasspath"
+↑gradle旧バージョンでは "configurations.compile" と思われる。
 to return us all the dependency files for that particular compiler scope.
 So let's give that a try, let's go over to Eclipse and try print out to the console.
 What happens if we use the "configurations.compile" property.
-So we can do that just as any other property and we need to wrap everything in double quotes and use the
-dollar sign and then we can examine the output when we run the jar task.
+So we can do that just as any other property and we need to wrap everything in double
+quotes and use the dollar sign and then we can examine the output when we run the jar task.
 ---
 	println ">>>> $project.configurations.compile"
 	↓実行結果↓
 	>>>> configuration ':compile'
 ---
-We can see it says "configuration ':compile' " which is basically just the toString method being called on that particular configurations object.
-So we know that this method works, is compile correct, is that the actual correct scope which we using.
-Because we actually want the runtime environment that our application is going to be working at.
-So it's best to get the runtime dependencies rather than compile time dependencies and also compile (time dependencies) is being deprecated.
+We can see it says "configuration ':compile' " which is basically just the toString
+method being called on that particular configurations object.
+So we know that this method works, is compile correct, is that the actual correct scope
+which we using.
+Because we actually want the runtime environment that our application is going to be
+working at.
+So it's best to get the runtime dependencies rather than compile time dependencies and
+also compile (time dependencies) is being deprecated.
 
-So once we start using implementation scope rather than compile scope you will find that the actual compile dependencies will be empty.
+So once we start using implementation scope rather than compile scope you will find that
+the actual compile dependencies will be empty.
 We can easily check that by looking at the dependencies task within the help task,
-and when we run dependencies(task) , actually outputs to the console all of dependencies out project has for the various scopes.
+and when we run dependencies(task) , actually outputs to the console all of dependencies
+out project has for the various scopes.
 
 ------
 
@@ -1201,8 +1410,8 @@ No dependencies
 runtimeOnly - Runtime only dependencies for source set 'main'. (n)
 No dependencies
 
-testAnnotationProcessor - Annotation processors and their dependencies for source set 'test'.
-No dependencies
+testAnnotationProcessor - Annotation processors and their dependencies for source
+set 'test'. No dependencies
 
 testCompileClasspath - Compile classpath for source set 'test'.
 +--- org.apache.commons:commons-math3:3.6.1
@@ -1237,11 +1446,13 @@ BUILD SUCCESSFUL in 159ms
 ------------
 
 
-there are dependency files there and that's because we're using the new implementation scope so browsing down all the various scopes and 
+there are dependency files there and that's because we're using the new implementation
+scope so browsing down all the various scopes and 
 dependencies which one can we use , can we use implementation ?
 Well no actually we can't .
 We need to use one of the others.
-In fact we need to use the "runtimeClasspath" which makes perfect sence because we are going to be running our Java applications.
+In fact we need to use the "runtimeClasspath" which makes perfect sence because we are
+going to be running our Java applications.
 So we need all the runtime dependencies with it in our Jar file.
 So let's go ahead and change the ".compile" to the ".runtimeClasspath"
 I may run the jar task to see what results we get.
@@ -1251,33 +1462,43 @@ So we got
 ↓
 >>>> configuration ':runtimeClasspath'
 ---
-So yeah we got a similar result to last time we got configurations only this time "runtimeClasspath".
+So yeah we got a similar result to last time we got configurations only this time
+"runtimeClasspath".
 So now we know we can get a handle on that container.
 We just need to get access to the files and directories contained in that container.
-In fact there's a really useful method from groovy in fact every object in groovy inherits this methid called "collect".
-Now collect iterate through a collection converting each element into a new value using the clusure as the transformer.
+In fact there's a really useful method from groovy in fact every object in groovy inherits
+this methid called "collect".
+Now collect iterate through a collection converting each element into a new value using the
+clusure as the transformer.
 So we can actually provide the clusure with this method to help us transform the results.
-And that's ideal for what we want to do because we actually want to collect the files and include those
-files into our Jar file.
-So we know we're going to be manipulating files, so we can set the (officer?) definitions we got files there.
+And that's ideal for what we want to do because we actually want to collect the files and
+include those files into our Jar file.
+So we know we're going to be manipulating files, so we can set the (officer?) definitions
+we got files there.
 But what we can transform that file with ?
-Well actually we need to use a utility method called zip tree and that can be found on the project API.
-Because what we need to do is to actually take the contents from the dependency file and include it into our jar file.
-So in other words we need to unzip the dependency file Jar file, in our case the Apache-commons-math jar ,
-needs to unzip that unpackage that and include the contents into very own Jar file, and this method does that, call a zip tree.
+Well actually we need to use a utility method called zip tree and that can be found on
+the project API.
+Because what we need to do is to actually take the contents from the dependency file
+and include it into our jar file.
+So in other words we need to unzip the dependency file Jar file, in our case the
+Apache-commons-math jar ,
+needs to unzip that unpackage that and include the contents into very own Jar file,
+and this method does that, call a zip tree.
 So let's go ahead and plug this method into our clusure.
 
 ---
-	println project.configurations.runtimeClasspath.collect{File file -> project.zipTree(file)}
+println project.configurations.runtimeClasspath.collect{File file -> project.zipTree(file)}
 ↓
 [ZIP 'C:\Users\sufur\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-math3\3.6.1\e4ba98f1d4b3c80ec46392f25e094a6a2e58fcbf\commons-math3-3.6.1.jar']
 ---
-So all it's left to do now is to (take?) this bit of code we've been testing out here with a println 
-and to actually place it into a "from" closure, now we met our main three requirements.
+So all it's left to do now is to (take?) this bit of code we've been testing out here
+with a println and to actually place it into a "from" closure, now we met our main three
+requirements.
 
 We've changed the project name,
 we have modified the manifest file to include our attributes we need.
-And we've also included the unzipped contents for our dependency files into our own Jar file.
+And we've also included the unzipped contents for our dependency files into our own
+Jar file.
 And this is all done it takes place in jar task.
 
 ～略～
@@ -1307,14 +1528,15 @@ plugins {
 ---
 And then we should do a gradle refresh by right cliking on the project going down
 to gradle and then doing a gradle reflesh.
-And that gets everything synchronized up and now what you should notice when we reopen the project in
-the gradle task and we go to the build lifecycle folder and open that up,
-you'll notice in our initial project, we also have the war task which is what we have in the
-complete project.
+And that gets everything synchronized up and now what you should notice when we reopen the
+project in the gradle task and we go to the build lifecycle folder and open that up,
+you'll notice in our initial project, we also have the war task which is what we have
+in the complete project.
 So both projects now match.
 Well let's perform a clean and clean up our initial project remove all the old files,
 and then let's perform the build lifecycle by just doing a run build.
-Now you can see from the console output of all task has also been included as part of our build lifecycle.
+Now you can see from the console output of all task has also been included as part of
+our build lifecycle.
 ---
 > Task :compileJava
 > Task :processResources
@@ -1331,15 +1553,17 @@ Now you can see from the console output of all task has also been included as pa
 BUILD SUCCESSFUL in 3s
 5 actionable tasks: 5 executed
 ---
-And now if we perform a refresh, you'll see our jar file gone and it's been replaced by a war file.
+And now if we perform a refresh, you'll see our jar file gone and it's been replaced by
+a war file.
 But the name is sampleWebApp-initial-0.0.1-SNAPSHOT.war.
 How can we change that ?
-Let's go over to the gradle documentation and see if we can actually do something about that.
+Let's go over to the gradle documentation and see if we can actually do something
+about that.
 Well as we can see the war task has a property called "archiveName".
 And the property we want to use.
 So to modify the war is very similar to how we modified the jar task.
-We just use the word "war" which is the name of the task followed by an open and close curly brace
-for a configuration closure.
+We just use the word "war" which is the name of the task followed by an open and close
+curly brace for a configuration closure.
 And then we can include our property within that.
 So we include "archiveName" equals and the name of the archive.
 ---
@@ -1348,14 +1572,15 @@ war {
 }
 ---
 ※クリーンしてビルドすることにより、war ファイル名が変わる。
-In the next tutorial I'm gonna look at how we can actually write our own task so we can deploy of new creative
-war file to Tomcat, the application server.
+In the next tutorial I'm gonna look at how we can actually write our own task so we can
+deploy of new creative war file to Tomcat, the application server.
 
 <<< 39.Deploying our Java Web application using gradle >>>
-In this tutorial we're going to be developing a brand new task that allows us to copy our web application
-archive file across to the Apache Tomcat server where it can be deployed.
-So to begin with, I just want to reference gradle javadoc because they actually provide us with a
-copy class that we can use with our task.
+In this tutorial we're going to be developing a brand new task that allows us to copy
+our web application archive file across to the Apache Tomcat server where it can be
+deployed.
+So to begin with, I just want to reference gradle javadoc because they actually provide us
+with a copy class that we can use with our task.
 https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/Copy.html
 So how does this work ?
 Well basically when we define our task, we can also assign a type.
@@ -1369,7 +1594,8 @@ so have the same behavior as the copy class.
 ---以下gradleのjavadocより
 public class Copy
 extends AbstractCopyTask
-Copies files into a destination directory. This task can also rename and filter files as it copies. The task implements CopySpec for specifying what to copy.
+Copies files into a destination directory. This task can also rename and filter files as
+it copies. The task implements CopySpec for specifying what to copy.
 Examples:
 
  task copyDocs(type: Copy) {
@@ -1381,8 +1607,8 @@ Examples:
 And by assigning the copy type we're basically assigning that behavior to our task.
 So our task now has access to all the public properties and methods of that particular type,
 in this case the copy and a new task can now take advantage of this.
-Here for example has a "from" and "into" property and we can assign those our own values as a shortcut.
-I'm going to copy and paste this example code into my build.gradle file.
+Here for example has a "from" and "into" property and we can assign those our own values as
+a shortcut. I'm going to copy and paste this example code into my build.gradle file.
 And then just modify it.
 ---
  task copyDocs(type: Copy) {
@@ -1390,8 +1616,8 @@ And then just modify it.
      into 'build/target/doc'
  }
 ---
-So I'm going to rename the task from "copyDocs" to "deployToTomcat" because we're going to be using this task
-to deploy our war file over to the deployment folder on Apache Tomcat
+So I'm going to rename the task from "copyDocs" to "deployToTomcat" because we're going to
+be using this task to deploy our war file over to the deployment folder on Apache Tomcat
 
 ---
 task deployToTomcat(type: Copy) {
@@ -1439,17 +1665,20 @@ task deployToTomcat(type: Copy) {
      into "$tomcatWebapps"
 }
 ---
-... we don't need to use the "ext" at this point really need to do that when we actually create the propety.
+... we don't need to use the "ext" at this point really need to do that when we actually
+create the propety.
 I'm going to create a new run configuration for our gradle project.
-I'm going to set the workspace to our initial project for our webapp and the task is going to be "deployToTomcat" task.
+I'm going to set the workspace to our initial project for our webapp and the task is going
+to be "deployToTomcat" task.
 
 ※deployToTomcat を実行すると、$tomcatWebappsにwarができている。
-※Tomcatを起動（コマンドプロンプトで、Tomcatインストールディレクトリ\bin をカレントにして startup を実行）
-　すると、webapps 配下にwar が展開される。
+※Tomcatを起動（コマンドプロンプトで、Tomcatインストールディレクトリ\bin をカレントにして
+　startup を実行）すると、webapps 配下にwar が展開される。
 
 ～略～
 
-We can easily create a dependency on the war task and we can do that using the "dependsOn" code on syntax
+We can easily create a dependency on the war task and we can do that using the "dependsOn"
+code on syntax
 ---
 task deployToTomcat(type: Copy, dependsOn:'war') {
      from war.archivePath
@@ -1464,19 +1693,22 @@ A.jar → B.jar → C.jar
 
 B is a Direct dependency of A (B is defined in A's build.gradle file)
 C is a Transitive Dependency for A
-(Transitive Dependencies: These are dependencies that are dependencies of your direct dependencies.)
+(Transitive Dependencies: These are dependencies that are dependencies of your
+ direct dependencies.)
 
 ～略～
 Large project that start to scale up and using many external third party frameworks,
 there is a real potential conflicts.
-For example, Spring, you may come across that you've got a conflict with one or two of its transitive dependencies.
+For example, Spring, you may come across that you've got a conflict with one or two of its
+transitive dependencies.
 So its important to know how to analyze the transitive dependencies your project has,
 and also how to resolve any potential conflicts.
 
 
 <<< 41.Analysing Dependencies >>>
 ～略～
-If we go to the gradle task tab and then select our project we can see a whole bunch of folders here.
+If we go to the gradle task tab and then select our project we can see a whole bunch of
+folders here.
 One of those is "help", tracerse into the "help" category.
 And we can see a task there called "dependencies".
 Now by running the task "dependencies", gradle actually output to the console all the
@@ -1562,10 +1794,12 @@ implementation - Implementation only dependencies for source set 'main'. (n)
 +--- jstl:jstl:1.2 (n)
 \--- log4j:log4j:1.2.17 (n)
 
-providedCompile - Additional compile classpath for libraries that should not be part of the WAR archive.
+providedCompile - Additional compile classpath for libraries that should not be part of the
+WAR archive.
 No dependencies
 
-providedRuntime - Additional runtime classpath for libraries that should not be part of the WAR archive.
+providedRuntime - Additional runtime classpath for libraries that should not be part of the
+WAR archive.
 No dependencies
 
 runtimeClasspath - Runtime classpath of source set 'main'.
@@ -1692,28 +1926,35 @@ implementation - Implementation only dependencies for source set 'main'. (n)
 \--- log4j:log4j:1.2.17 (n)
 ---------------
 These are direct dependencies.
-This is in contrast to the "compileClasspath" which shows all the direct and also the Transitive dependencies that
+This is in contrast to the "compileClasspath" which shows all the direct and also the
+Transitive dependencies that
 are pulled in with the various frameworks being used.
 
 So here on the "runtimeClasspath" for example, we've got ...
 ... and also the Jakarta Commons logging library.
 As you can see, I'm already using a logging framework called "log4j" in my project.
-So in effect(事実上) I now have two logging frameworks being imported and used in my project.
-I've got the transitive one from Spring Web MVC, and I also have my own Direct dependency for log4j. 
-And when I open up the class identifer generation controller, you can see that I'm actually using both loggers.
+So in effect(事実上) I now have two logging frameworks being imported and used in
+my project.
+I've got the transitive one from Spring Web MVC, and I also have my own Direct dependency
+for log4j. 
+And when I open up the class identifer generation controller, you can see that I'm actually
+using both loggers.
 
 ---
 @Controller
 public class IdentifierGenerationController {
-	
-	// Using the slf4j api directly - remove comments from this code only after SLF4J dependencies are added, see tutorials. 
-	//private static final Logger logger = LoggerFactory.getLogger(IdentifierGenerationController.class);
 
-	// using the log4j api, jar provided by our specific dependency
-	private static final Logger logger = Logger.getLogger("com.denofprogramming.controller.IdentifierGenerationController");
+// Using the slf4j api directly - remove comments from this code only after
+// SLF4J dependencies are added, see tutorials. 
+// private static final Logger logger = LoggerFactory.getLogger
+// (IdentifierGenerationController.class);
 
-	// using the JCL api, jar provided by transient dependency via spring-core
-	private Log log = LogFactory.getLog(IdentifierGenerationController.class);
+// using the log4j api, jar provided by our specific dependency
+private static final Logger logger
+ = Logger.getLogger("com.denofprogramming.controller.IdentifierGenerationController");
+
+// using the JCL api, jar provided by transient dependency via spring-core
+private Log log = LogFactory.getLog(IdentifierGenerationController.class);
 ---
 Now in this tutorial what I want to do is basically move away from using log4j
 and also the Jakarta commons logging framework, and standarize my project on the
