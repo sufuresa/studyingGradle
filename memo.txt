@@ -1352,3 +1352,111 @@ In the next tutorial I'm gonna look at how we can actually write our own task so
 war file to Tomcat, the application server.
 
 <<< 39.Deploying our Java Web application using gradle >>>
+In this tutorial we're going to be developing a brand new task that allows us to copy our web application
+archive file across to the Apache Tomcat server where it can be deployed.
+So to begin with, I just want to reference gradle javadoc because they actually provide us with a
+copy class that we can use with our task.
+https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/Copy.html
+So how does this work ?
+Well basically when we define our task, we can also assign a type.
+In this case the type of copy which is of the copy class.
+And that acts kind of like inheritance(継承).
+
+So if you think of an inheritance in Java, where one class inherits from another,
+(basically?) we're saying here, we want our task, in this case, copyDocs to be of type copy,
+so have the same behavior as the copy class.
+
+---以下gradleのjavadocより
+public class Copy
+extends AbstractCopyTask
+Copies files into a destination directory. This task can also rename and filter files as it copies. The task implements CopySpec for specifying what to copy.
+Examples:
+
+ task copyDocs(type: Copy) {
+     from 'src/main/doc'
+     into 'build/target/doc'
+ }
+---
+
+And by assigning the copy type we're basically assigning that behavior to our task.
+So our task now has access to all the public properties and methods of that particular type,
+in this case the copy and a new task can now take advantage of this.
+Here for example has a "from" and "into" property and we can assign those our own values as a shortcut.
+I'm going to copy and paste this example code into my build.gradle file.
+And then just modify it.
+---
+ task copyDocs(type: Copy) {
+     from 'src/main/doc'
+     into 'build/target/doc'
+ }
+---
+So I'm going to rename the task from "copyDocs" to "deployToTomcat" because we're going to be using this task
+to deploy our war file over to the deployment folder on Apache Tomcat
+
+---
+task deployToTomcat(type: Copy) {
+     from 'src/main/doc'
+     into 'build/target/doc'
+}
+---
+Now we need to modify the "from" property because we're not copying any source code here.
+We need to copy our war file.
+So, how do we get that imformation ?
+If we go over to the documentation of gradle for the war file,
+https://docs.gradle.org/current/dsl/org.gradle.api.tasks.bundling.War.html#org.gradle.api.tasks.bundling.War
+... if we scroll down, we can actually come across the actual archive path.
+So the war task has a property on it called "archivePath".
+The path is simply the destination directory plus the archive name.
+And then to refernce there we need to reference the war task and using the dot notation,
+then access the property of archive path.
+---
+task deployToTomcat(type: Copy) {
+     from war.archivePath
+     into 'build/target/doc'
+}
+---
+And that's the information we need to provide for the "from" property.
+Now we need to change "into" property.
+So we point to the deployment directory for our installation of Apache Tomcat.
+So just go ahead and you can browse using your explorer to the location of the 
+actual webapps folder within your Apache Tomcat installation.
+
+---
+task deployToTomcat(type: Copy) {
+     from war.archivePath
+     into 'C:/Users/sufur/apache-tomcat-9.0.30-windows-x64/apache-tomcat-9.0.30/webapps'
+}
+---
+... it's probably a good idea to actually extract that and have it defined as a property
+further up to the top of the build script.
+So here I'm going to define a new extension property on the project object such as ...
+
+---
+project.ext.tomcatWebapps = 'C:/Users/sufur/apache-tomcat-9.0.30-windows-x64/apache-tomcat-9.0.30/webapps'
+
+task deployToTomcat(type: Copy) {
+     from war.archivePath
+     into "$tomcatWebapps"
+}
+---
+... we don't need to use the "ext" at this point really need to do that when we actually create the propety.
+I'm going to create a new run configuration for our gradle project.
+I'm going to set the workspace to our initial project for our webapp and the task is going to be "deployToTomcat" task.
+
+※deployToTomcat を実行すると、$tomcatWebappsにwarができている。
+※Tomcatを起動（コマンドプロンプトで、Tomcatインストールディレクトリ\bin をカレントにして startup を実行）
+　すると、webapps 配下にwar が展開される。
+
+～略～
+
+We can easily create a dependency on the war task and we can do that using the "dependsOn" code on syntax
+---
+task deployToTomcat(type: Copy, dependsOn:'war') {
+     from war.archivePath
+     into 'C:/Users/sufur/apache-tomcat-9.0.30-windows-x64/apache-tomcat-9.0.30/webapps'
+}
+---
+
+<<< 40.What are Transitive Dependencies ? >>>
+※Transitive　推移的、他動的
+
