@@ -1283,3 +1283,72 @@ And this is all done it takes place in jar task.
 ～略～
 
 <<< 38.Buiding a Java Web application >>>
+
+～略～
+It's a quite complex process to build a war file manually.
+So it's a really good idea to try and automate it.
+How do we do that in gradle ?
+
+～略～
+
+There is gradle documentation for War.
+https://docs.gradle.org/current/dsl/org.gradle.api.tasks.bundling.War.html#org.gradle.api.tasks.bundling.War
+
+How do we go about including the war task in our gradle.build ?
+We just include the plugin.
+The war plugin.
+And we do that in the same way we did with the java plugin.
+We just add a new id followed by the string 'war' wrapped in single or double quotes.
+---
+plugins {
+  id 'java'
+  id 'war'
+}
+---
+And then we should do a gradle refresh by right cliking on the project going down
+to gradle and then doing a gradle reflesh.
+And that gets everything synchronized up and now what you should notice when we reopen the project in
+the gradle task and we go to the build lifecycle folder and open that up,
+you'll notice in our initial project, we also have the war task which is what we have in the
+complete project.
+So both projects now match.
+Well let's perform a clean and clean up our initial project remove all the old files,
+and then let's perform the build lifecycle by just doing a run build.
+Now you can see from the console output of all task has also been included as part of our build lifecycle.
+---
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :war ←
+> Task :assemble
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :test
+> Task :check
+> Task :build
+
+BUILD SUCCESSFUL in 3s
+5 actionable tasks: 5 executed
+---
+And now if we perform a refresh, you'll see our jar file gone and it's been replaced by a war file.
+But the name is sampleWebApp-initial-0.0.1-SNAPSHOT.war.
+How can we change that ?
+Let's go over to the gradle documentation and see if we can actually do something about that.
+Well as we can see the war task has a property called "archiveName".
+And the property we want to use.
+So to modify the war is very similar to how we modified the jar task.
+We just use the word "war" which is the name of the task followed by an open and close curly brace
+for a configuration closure.
+And then we can include our property within that.
+So we include "archiveName" equals and the name of the archive.
+---
+war {
+	archiveName="mywebapp.war"
+}
+---
+※クリーンしてビルドすることにより、war ファイル名が変わる。
+In the next tutorial I'm gonna look at how we can actually write our own task so we can deploy of new creative
+war file to Tomcat, the application server.
+
+<<< 39.Deploying our Java Web application using gradle >>>
