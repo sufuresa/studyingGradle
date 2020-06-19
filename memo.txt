@@ -1709,7 +1709,7 @@ and also how to resolve any potential conflicts.
 Å`ó™Å`
 If we go to the gradle task tab and then select our project we can see a whole bunch of
 folders here.
-One of those is "help", tracerse into the "help" category.
+One of those is "help", traverse into the "help" category.
 And we can see a task there called "dependencies".
 Now by running the task "dependencies", gradle actually output to the console all the
 dependencies for our project, and for each of the scopes.
@@ -1915,6 +1915,7 @@ See https://docs.gradle.org/6.0/userguide/command_line_interface.html#sec:comman
 BUILD SUCCESSFUL in 391ms
 1 actionable task: 1 executed
 ------
+
 You can see under the implementation heading here we've got all our Direct dependencies.
 So we got 
 ---à»â∫ÅAçƒåf---
@@ -1927,8 +1928,7 @@ implementation - Implementation only dependencies for source set 'main'. (n)
 ---------------
 These are direct dependencies.
 This is in contrast to the "compileClasspath" which shows all the direct and also the
-Transitive dependencies that
-are pulled in with the various frameworks being used.
+Transitive dependencies that are pulled in with the various frameworks being used.
 
 So here on the "runtimeClasspath" for example, we've got ...
 ... and also the Jakarta Commons logging library.
@@ -1956,8 +1956,32 @@ private static final Logger logger
 // using the JCL api, jar provided by transient dependency via spring-core
 private Log log = LogFactory.getLog(IdentifierGenerationController.class);
 ---
+
 Now in this tutorial what I want to do is basically move away from using log4j
 and also the Jakarta commons logging framework, and standarize my project on the
 "Simple Logging Facade" otherwise known as "SLF4J".
 
---- 2:38 ---
+Now the advantage of using this framework is, kind of acts as a facade(äOäœ) or a wrapper
+around any other logging frameworks out there.
+
+So there's a wrapper for log4j.
+There's also a wrapper or adapter(â¸çÏé“,â¡å∏ëïíu) for the Jakarta Commons logging framework.
+Now the advantage of standardizing my project on this logging framework SLF4J,
+is that it does away with the potencial conflicts that might arise by having lots of
+different frameworks being used for performing logging and their various transitive
+dependencies they might be bringing into my project as well.
+So it kind of gives me a lot more control.
+
+Now I'm not going to go into too much detail about the intricacies of SLA4J
+because you can head over to the website here and read about it yourself,
+but basic I need the SLA4J artifact or jar file if you like.
+That works for log4j because I'm already using a log4j in my project and I don't have to
+go through my code and strip that code out and change it just because I'm changing a framework.
+
+The other thing is I also want to remove my dependency on my project for the
+Jakarta Commons logging framework, that comes with Spring Web MVC and I want to use SLF4J
+at that to for that.
+
+--- 4:00 ---
+
+
