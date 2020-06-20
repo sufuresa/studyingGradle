@@ -1980,8 +1980,296 @@ go through my code and strip that code out and change it just because I'm changi
 
 The other thing is I also want to remove my dependency on my project for the
 Jakarta Commons logging framework, that comes with Spring Web MVC and I want to use SLF4J
-at that to for that.
+(at that to for that..?)
 
---- 4:00 ---
+Okay, let's head over to the web site https://mvnrepository.com/ and do a search in there
+to find out the coordinates for the jar file for the SLF4J, log4j, component.
 
+--- キーワードorg.slf4jで検索 ---
 
+We can see SLF4J api and then the second one down we can see SLF4J log4j12 binding.
+And this is the binding api between SLF4J and log4j.
+Using this will save me having to go into my web application and refactor all the code to
+use a new logging framework.
+I can basically just use the same api that I've already been using.
+So it kind of acts as a facade if you like.
+
+So what I need to do is to choose a version and get the coordinates for that version.
+I'm choosing ver 1.7.25 and I'm going to head over to the gradle tab, so I can select the
+gradle coordinates and paste those into my build file.
+
+---
+// https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12
+testCompile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
+---
+
+I also need to include my scope which is going to be implementation.
+And I'm going to take away the "group:" "name:" "version:" just to make a little bit more
+succinct(簡潔な).
+
+---
+dependencies { 
+	implementation 'org.springframework:spring-webmvc:4.0.3.RELEASE'
+	implementation 'javax.inject:javax.inject:1'
+	implementation 'org.apache.commons:commons-math3:3.2'
+	implementation 'jstl:jstl:1.2'
+	implementation 'log4j:log4j:1.2.17'
+	implementation 'org.slf4j:slf4j-log4j12:1.7.25'　←ここ
+
+	compileOnly "javax.servlet:javax.servlet-api:3.0.1"
+	testImplementation	'junit:junit:4.11'
+}
+---
+
+Once we've saved our build file, we can always go over to the Eclipse's
+"Project and External Dependencies" and we can do a gradle refresh on the project and
+we can see that that folder gets updated.
+
+So we've now got our SLF4J log4j depencency included in our "Project and External Dependencies"
+within eclipse.
+But we don't just need to rely on Eclipse to show us our dependencies, we also can use our
+dependencies gradle tasks to help us do that.
+And this will also help us see any transitive dependencies this logging framework may also
+bring into our project.
+
+So if we go ahead and run the dependencies task and then we go to the
+(Gradle Tasks tab - project - help - dependencies),
+"implementation", you can see we've got our direct dependency set up there.
+
+---
+> Task :dependencies
+
+------------------------------------------------------------
+Root project
+------------------------------------------------------------
+
+annotationProcessor - Annotation processors and their dependencies for source set 'main'.
+No dependencies
+
+apiElements - API elements for main. (n)
+No dependencies
+
+archives - Configuration for archive artifacts.
+No dependencies
+
+compileClasspath - Compile classpath for source set 'main'.
++--- javax.servlet:javax.servlet-api:3.0.1
++--- org.springframework:spring-webmvc:4.0.3.RELEASE
+|    +--- org.springframework:spring-beans:4.0.3.RELEASE
+|    |    \--- org.springframework:spring-core:4.0.3.RELEASE
+|    |         \--- commons-logging:commons-logging:1.1.3
+|    +--- org.springframework:spring-context:4.0.3.RELEASE
+|    |    +--- org.springframework:spring-aop:4.0.3.RELEASE
+|    |    |    +--- aopalliance:aopalliance:1.0
+|    |    |    +--- org.springframework:spring-beans:4.0.3.RELEASE (*)
+|    |    |    \--- org.springframework:spring-core:4.0.3.RELEASE (*)
+|    |    +--- org.springframework:spring-beans:4.0.3.RELEASE (*)
+|    |    +--- org.springframework:spring-core:4.0.3.RELEASE (*)
+|    |    \--- org.springframework:spring-expression:4.0.3.RELEASE
+|    |         \--- org.springframework:spring-core:4.0.3.RELEASE (*)
+|    +--- org.springframework:spring-core:4.0.3.RELEASE (*)
+|    +--- org.springframework:spring-expression:4.0.3.RELEASE (*)
+|    \--- org.springframework:spring-web:4.0.3.RELEASE
+|         +--- org.springframework:spring-aop:4.0.3.RELEASE (*)
+|         +--- org.springframework:spring-beans:4.0.3.RELEASE (*)
+|         +--- org.springframework:spring-context:4.0.3.RELEASE (*)
+|         \--- org.springframework:spring-core:4.0.3.RELEASE (*)
++--- javax.inject:javax.inject:1
++--- org.apache.commons:commons-math3:3.2
++--- jstl:jstl:1.2
++--- log4j:log4j:1.2.17
+\--- org.slf4j:slf4j-log4j12:1.7.25
+     +--- org.slf4j:slf4j-api:1.7.25
+     \--- log4j:log4j:1.2.17
+
+compileOnly - Compile only dependencies for source set 'main'. (n)
+\--- javax.servlet:javax.servlet-api:3.0.1 (n)
+
+default - Configuration for default artifacts.
++--- org.springframework:spring-webmvc:4.0.3.RELEASE
+|    +--- org.springframework:spring-beans:4.0.3.RELEASE
+|    |    \--- org.springframework:spring-core:4.0.3.RELEASE
+|    |         \--- commons-logging:commons-logging:1.1.3
+|    +--- org.springframework:spring-context:4.0.3.RELEASE
+|    |    +--- org.springframework:spring-aop:4.0.3.RELEASE
+|    |    |    +--- aopalliance:aopalliance:1.0
+|    |    |    +--- org.springframework:spring-beans:4.0.3.RELEASE (*)
+|    |    |    \--- org.springframework:spring-core:4.0.3.RELEASE (*)
+|    |    +--- org.springframework:spring-beans:4.0.3.RELEASE (*)
+|    |    +--- org.springframework:spring-core:4.0.3.RELEASE (*)
+|    |    \--- org.springframework:spring-expression:4.0.3.RELEASE
+|    |         \--- org.springframework:spring-core:4.0.3.RELEASE (*)
+|    +--- org.springframework:spring-core:4.0.3.RELEASE (*)
+|    +--- org.springframework:spring-expression:4.0.3.RELEASE (*)
+|    \--- org.springframework:spring-web:4.0.3.RELEASE
+|         +--- org.springframework:spring-aop:4.0.3.RELEASE (*)
+|         +--- org.springframework:spring-beans:4.0.3.RELEASE (*)
+|         +--- org.springframework:spring-context:4.0.3.RELEASE (*)
+|         \--- org.springframework:spring-core:4.0.3.RELEASE (*)
++--- javax.inject:javax.inject:1
++--- org.apache.commons:commons-math3:3.2
++--- jstl:jstl:1.2
++--- log4j:log4j:1.2.17
+\--- org.slf4j:slf4j-log4j12:1.7.25
+     +--- org.slf4j:slf4j-api:1.7.25
+     \--- log4j:log4j:1.2.17
+
+implementation - Implementation only dependencies for source set 'main'. (n)
++--- org.springframework:spring-webmvc:4.0.3.RELEASE (n)
++--- javax.inject:javax.inject:1 (n)
++--- org.apache.commons:commons-math3:3.2 (n)
++--- jstl:jstl:1.2 (n)
++--- log4j:log4j:1.2.17 (n)
+\--- org.slf4j:slf4j-log4j12:1.7.25 (n)
+
+providedCompile - Additional compile classpath for libraries that should not be part of the WAR archive.
+No dependencies
+
+providedRuntime - Additional runtime classpath for libraries that should not be part of the WAR archive.
+No dependencies
+
+runtimeClasspath - Runtime classpath of source set 'main'.
++--- org.springframework:spring-webmvc:4.0.3.RELEASE
+|    +--- org.springframework:spring-beans:4.0.3.RELEASE
+|    |    \--- org.springframework:spring-core:4.0.3.RELEASE
+|    |         \--- commons-logging:commons-logging:1.1.3
+|    +--- org.springframework:spring-context:4.0.3.RELEASE
+|    |    +--- org.springframework:spring-aop:4.0.3.RELEASE
+|    |    |    +--- aopalliance:aopalliance:1.0
+|    |    |    +--- org.springframework:spring-beans:4.0.3.RELEASE (*)
+|    |    |    \--- org.springframework:spring-core:4.0.3.RELEASE (*)
+|    |    +--- org.springframework:spring-beans:4.0.3.RELEASE (*)
+|    |    +--- org.springframework:spring-core:4.0.3.RELEASE (*)
+|    |    \--- org.springframework:spring-expression:4.0.3.RELEASE
+|    |         \--- org.springframework:spring-core:4.0.3.RELEASE (*)
+|    +--- org.springframework:spring-core:4.0.3.RELEASE (*)
+|    +--- org.springframework:spring-expression:4.0.3.RELEASE (*)
+|    \--- org.springframework:spring-web:4.0.3.RELEASE
+|         +--- org.springframework:spring-aop:4.0.3.RELEASE (*)
+|         +--- org.springframework:spring-beans:4.0.3.RELEASE (*)
+|         +--- org.springframework:spring-context:4.0.3.RELEASE (*)
+|         \--- org.springframework:spring-core:4.0.3.RELEASE (*)
++--- javax.inject:javax.inject:1
++--- org.apache.commons:commons-math3:3.2
++--- jstl:jstl:1.2
++--- log4j:log4j:1.2.17
+\--- org.slf4j:slf4j-log4j12:1.7.25
+     +--- org.slf4j:slf4j-api:1.7.25
+     \--- log4j:log4j:1.2.17
+
+runtimeElements - Elements of runtime for main. (n)
+No dependencies
+
+runtimeOnly - Runtime only dependencies for source set 'main'. (n)
+No dependencies
+
+testAnnotationProcessor - Annotation processors and their dependencies for source set 'test'.
+No dependencies
+
+testCompileClasspath - Compile classpath for source set 'test'.
++--- org.springframework:spring-webmvc:4.0.3.RELEASE
+|    +--- org.springframework:spring-beans:4.0.3.RELEASE
+|    |    \--- org.springframework:spring-core:4.0.3.RELEASE
+|    |         \--- commons-logging:commons-logging:1.1.3
+|    +--- org.springframework:spring-context:4.0.3.RELEASE
+|    |    +--- org.springframework:spring-aop:4.0.3.RELEASE
+|    |    |    +--- aopalliance:aopalliance:1.0
+|    |    |    +--- org.springframework:spring-beans:4.0.3.RELEASE (*)
+|    |    |    \--- org.springframework:spring-core:4.0.3.RELEASE (*)
+|    |    +--- org.springframework:spring-beans:4.0.3.RELEASE (*)
+|    |    +--- org.springframework:spring-core:4.0.3.RELEASE (*)
+|    |    \--- org.springframework:spring-expression:4.0.3.RELEASE
+|    |         \--- org.springframework:spring-core:4.0.3.RELEASE (*)
+|    +--- org.springframework:spring-core:4.0.3.RELEASE (*)
+|    +--- org.springframework:spring-expression:4.0.3.RELEASE (*)
+|    \--- org.springframework:spring-web:4.0.3.RELEASE
+|         +--- org.springframework:spring-aop:4.0.3.RELEASE (*)
+|         +--- org.springframework:spring-beans:4.0.3.RELEASE (*)
+|         +--- org.springframework:spring-context:4.0.3.RELEASE (*)
+|         \--- org.springframework:spring-core:4.0.3.RELEASE (*)
++--- javax.inject:javax.inject:1
++--- org.apache.commons:commons-math3:3.2
++--- jstl:jstl:1.2
++--- log4j:log4j:1.2.17
++--- org.slf4j:slf4j-log4j12:1.7.25
+|    +--- org.slf4j:slf4j-api:1.7.25
+|    \--- log4j:log4j:1.2.17
+\--- junit:junit:4.11
+     \--- org.hamcrest:hamcrest-core:1.3
+
+testCompileOnly - Compile only dependencies for source set 'test'. (n)
+No dependencies
+
+testImplementation - Implementation only dependencies for source set 'test'. (n)
+\--- junit:junit:4.11 (n)
+
+testRuntimeClasspath - Runtime classpath of source set 'test'.
++--- org.springframework:spring-webmvc:4.0.3.RELEASE
+|    +--- org.springframework:spring-beans:4.0.3.RELEASE
+|    |    \--- org.springframework:spring-core:4.0.3.RELEASE
+|    |         \--- commons-logging:commons-logging:1.1.3
+|    +--- org.springframework:spring-context:4.0.3.RELEASE
+|    |    +--- org.springframework:spring-aop:4.0.3.RELEASE
+|    |    |    +--- aopalliance:aopalliance:1.0
+|    |    |    +--- org.springframework:spring-beans:4.0.3.RELEASE (*)
+|    |    |    \--- org.springframework:spring-core:4.0.3.RELEASE (*)
+|    |    +--- org.springframework:spring-beans:4.0.3.RELEASE (*)
+|    |    +--- org.springframework:spring-core:4.0.3.RELEASE (*)
+|    |    \--- org.springframework:spring-expression:4.0.3.RELEASE
+|    |         \--- org.springframework:spring-core:4.0.3.RELEASE (*)
+|    +--- org.springframework:spring-core:4.0.3.RELEASE (*)
+|    +--- org.springframework:spring-expression:4.0.3.RELEASE (*)
+|    \--- org.springframework:spring-web:4.0.3.RELEASE
+|         +--- org.springframework:spring-aop:4.0.3.RELEASE (*)
+|         +--- org.springframework:spring-beans:4.0.3.RELEASE (*)
+|         +--- org.springframework:spring-context:4.0.3.RELEASE (*)
+|         \--- org.springframework:spring-core:4.0.3.RELEASE (*)
++--- javax.inject:javax.inject:1
++--- org.apache.commons:commons-math3:3.2
++--- jstl:jstl:1.2
++--- log4j:log4j:1.2.17
++--- org.slf4j:slf4j-log4j12:1.7.25
+|    +--- org.slf4j:slf4j-api:1.7.25
+|    \--- log4j:log4j:1.2.17
+\--- junit:junit:4.11
+     \--- org.hamcrest:hamcrest-core:1.3
+
+testRuntimeOnly - Runtime only dependencies for source set 'test'. (n)
+No dependencies
+
+(*) - dependencies omitted (listed previously)
+
+(n) - Not resolved (configuration is not meant to be resolved)
+
+A web-based, searchable dependency report is available by adding the --scan option.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 7.0.
+Use '--warning-mode all' to show the individual deprecation warnings.
+See https://docs.gradle.org/6.0/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 324ms
+1 actionable task: 1 executed
+---
+
+And if we go to the "compileClasspath" you can see we've got our dependency there.
+We've also got a couple of transitive dependencies and one of those is actually log4j
+
+So we're bringing in SLF4J framework which also has a dependency on log4j itself.
+Now we know this information, we can get rid of our direct dependency declaration for log4j.
+For now just commen it our.
+
+---
+dependencies { 
+	implementation 'org.springframework:spring-webmvc:4.0.3.RELEASE'
+	implementation 'javax.inject:javax.inject:1'
+	implementation 'org.apache.commons:commons-math3:3.2'
+	implementation 'jstl:jstl:1.2'
+//	implementation 'log4j:log4j:1.2.17'　←ここコメントアウト
+	implementation 'org.slf4j:slf4j-log4j12:1.7.25'
+		
+	compileOnly "javax.servlet:javax.servlet-api:3.0.1"
+	testImplementation	'junit:junit:4.11'
+}
+---
+
+6：59
