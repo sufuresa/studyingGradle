@@ -3022,3 +3022,16 @@ In next tutorial, I'm gonna look at some of the other reporting options that com
 with gradle (for that ?)
 
 
+<<< 42.Dependency Reports >>>
+The last tutorials I've been looking at how we can view the dependencies whether direct
+or indirect for our Java application using the dependencies task within the "help" group.
+So when we run the dependencies task, you can see outputs to the console all the various
+dependencies for particular the scopes.
+We can actually go one stage further and use the project reporting plugin that comes
+as part of gradle.
+https://docs.gradle.org/current/userguide/project_report_plugin.html#header
+
+Now this plugin is like any other and it comes with a whole bunch of tasks.
+
+--- 0:41 ---
+
