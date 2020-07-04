@@ -3033,5 +3033,30 @@ https://docs.gradle.org/current/userguide/project_report_plugin.html#header
 
 Now this plugin is like any other and it comes with a whole bunch of tasks.
 
---- 0:41 ---
+Two tasks we are going to be looking at.
+The "htmlDependencyReport" and the "dependencyReport".
+Okay, let's go and see how we can actually include this plugin into our build.
+Well like any other plugin, we include an "id" within the plugins block,
+and we just add the "project-report" there.
+----
+plugins {
+  id 'java'
+  id 'war'
+  id 'project-report' ©‚±‚ê
+}
+----
+And I'm going to create a new Run configuration so I can run one of our task for that report.
+And set up the work space.
+(Runconfiguration‚Ì‘‹‚©‚çworkspaceƒ{ƒ^ƒ“‚ğ‰Ÿ‰º‚µsampleWebApp-initial‚ğw’è‚·‚é)
+Now the task I'm going to be running is the "htmlDependencyReport" task
+So what I'm going to do is copy "htmlDependencyReport" and paste that into
+our gradle task box and go ahead and apply it.
+Now I'm gonna name this Run configuration,,,,"htmlDependencyReport".
+...and run it.
+And then we can head over to the navigator tab and refresh the project,
+you'll see a new folder appers called "report".
+And if we traverse that into "projects" you'll see an index to html file.
+Go ahead and open up into the browser you'll see we've got a nicely formatted html document.
+And we can head down to the implementations and you can see our
+direct dependencies defined in there.
 
