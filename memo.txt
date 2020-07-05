@@ -3054,9 +3054,16 @@ our gradle task box and go ahead and apply it.
 Now I'm gonna name this Run configuration,,,,"htmlDependencyReport".
 ...and run it.
 And then we can head over to the navigator tab and refresh the project,
-you'll see a new folder appers called "report".
+you'll see a new folder appers called "reports".
 And if we traverse that into "projects" you'll see an index to html file.
 Go ahead and open up into the browser you'll see we've got a nicely formatted html document.
 And we can head down to the implementations and you can see our
 direct dependencies defined in there.
+
+If we go up to the "compileClasspath" you'll see all our direct dependencies and
+plus the transitive dependencies, and that goes the same for "runtimeClasspath".
+
+You can also see the same thing and again for the "testRuntimeClasspath",
+the only difference here is that we also have J-unit included.
+
 
