@@ -3066,4 +3066,14 @@ plus the transitive dependencies, and that goes the same for "runtimeClasspath".
 You can also see the same thing and again for the "testRuntimeClasspath",
 the only difference here is that we also have J-unit included.
 
+So what about the dependencies report ?
+We can do the same thing there.
+We can create ourselves a new Run Configuration, and set the working directory through our
+workspace or project.
+Now the Gradle Task we just paste "dependencyReport" and change the name to
+dependency report as well and then apply that and run that , this time when we refresh
+the project and go to the same "reports" folder, you can see there's a .txt file.
+It's a dependencies.txt file.
+
+--- 3:03 ---
 
