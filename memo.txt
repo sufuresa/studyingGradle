@@ -3290,4 +3290,24 @@ OK, so that's a quick overview of the project report plug in.
 
 In the next tutorial, I'm gonna start looking at how gradle handles multi project builds.
 
+<<< 43.What is a Multi-Project build ? >>>
+One of the most powerful features of gradle and one of it's unique selling points is it's
+powerful support for multi project builds.
+And also this topic is one of the most intellectually(ímìIÇ…) challenging.
+So I'll be spending quite a few tutorials even sections going through some of the
+various scenarios.
+So why would we want to perform multi project build in the first place ?
+What are some of the advantages ?
 
+Well by deviding our projects up into reuseable components rather than having one large
+monolithic application is a really good practice.
+By separating concerns out into their own components or modules provides us with a great
+deal of flexibility and reuseability.
+So dividing our application up into discrete(å¬ï ÇÃ) components which are highly 
+cohesive(ã√èk) but loosely couple we are adhering to some really strong software
+engineering princeples not only allows us to isolate the code from one component to
+another but also allows us the flexibility to reuse componets and not have to pull
+in what seens like the whole universe of code just to get a few lines of code
+working one particular component.
+
+--- 1:16 ---
