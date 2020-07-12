@@ -3310,4 +3310,44 @@ another but also allows us the flexibility to reuse componets and not have to pu
 in what seens like the whole universe of code just to get a few lines of code
 working one particular component.
 
---- 1:16 ---
+Now gradle support for multi project builds is exellent.
+So it lends itself(Ç”Ç≥ÇÌÇµÇ¢) to helping us develop loosely coupled and
+highly cohesive componets.
+
+The other advantage of developing software this way is it allows us to effectively build
+and test our code more efficiently.
+
+So in gradle, how do we organize our projects ?
+
+Well to begin with in a multi project build, we start off with a root project
+and this maps to our file system as the top level project.
+Then below that we can have what is known as sub projects.
+
+         Root Project
+              |
+    ---------------------
+    |         |          |
+Project-A  Project-BÅ©Project-C
+
+So here for example we've got Project-A,B,C.
+Now project can also have another sub project nested within it.
+So within that directory structure we can also go down another level and is
+pretty much limitless.
+As far as gradle concerned(Å`Ç…ä÷Ç∑ÇÈå¿ÇËÇÕ) how many sub projects we have and this
+is pretty much reflected in the file system (this) tree structure or root structure if you like.
+
+Now we can also have projects with dependencies on one another.
+So say for example Project-C here which is a sub project of the Root-Project and it can
+also have a dependency on Project-B which is also a sub project of the same Root-Project.
+
+So what does that mean ?
+
+Well basically when it comes to compile time project-B always needs to compile before
+Project-C, because Project-C has dependency on that.
+
+Now we're going to be going through that a lot more detail in the coming tutorials.
+But first of all I want to look at how to struct our project not just within Eclipse
+but also on the file system to reflect a structure gradle can use.
+
+<<< Our 1st Multi-Project build >>>
+
