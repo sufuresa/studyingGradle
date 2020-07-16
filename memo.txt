@@ -3349,5 +3349,47 @@ Now we're going to be going through that a lot more detail in the coming tutoria
 But first of all I want to look at how to struct our project not just within Eclipse
 but also on the file system to reflect a structure gradle can use.
 
-<<< Our 1st Multi-Project build >>>
+<<< 44.Our 1st Multi-Project build >>>
+Å`ó™Å`
+So let's go ahead now and import the projects that are held within the 
+"gradle-multiProject-complete" folder.
 
+In eclipse, we can right click in the package explorer and head down to the import with
+three dots menu item and then in the dialog we can select the gradle option and import
+existing gradle project.
+Now once we're in the import gradle project dialog box we can traverse down to the project
+or the root project and that project is called "allAboutNumbers-complete" .
+Now remember back to the previous tutorial when I talked about the root project,
+well the "allAboutNumbers-complete" folder is that root project.
+So we need to select that and import as an existing gradle project.
+Now one of the features are really like about build ship plugin is that when you do the 
+import project, you can see the area which says gradle project structure.
+
+Now you can see our top level root projects "allAboutNumbers-complete".
+(but) on the left side, you can also see an arrow.
+Now if you click on that, it expands out and you can see three sub projects and you
+can see here the sub project are ... 
+Now I'm going to go into details as to what these actual sub projects do,
+but for now I just want to go ahead and import the top level root project and then
+we can see all the sub projects get imported with that automatially.
+
+So I'm going to go ahead now and click the finish button.
+
+We then see the eclipse adds are all about numbers project but it also includes a new
+project for each of our sub projects.
+
+As you can see our "pickerNumberApplication1" "plusplus" "randomNumberGen1".
+
+In the last tutorial I talked about how the project structure and the folder structure
+on the harddrive match each other make a see here.
+Make a see here I've got the root project "allAboutNumbers" and in there we have a
+build.gradle file and also settings.gradle file.
+You also see three other folders which match the sub projects.
+And if we go into each of those sub projects you'll see there's also a build.gradle file
+in there too.
+Now each project is a project in it's own right.
+So is has its own build.gradle file, but at the same time where we have commonality.
+We can refactor common build configuration up into the root project.
+So it can be shared with all the sub projects.
+
+--- 3:45 ---
