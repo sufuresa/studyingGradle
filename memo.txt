@@ -3334,7 +3334,8 @@ Now project can also have another sub project nested within it.
 So within that directory structure we can also go down another level and is
 pretty much limitless.
 As far as gradle concerned(Å`Ç…ä÷Ç∑ÇÈå¿ÇËÇÕ) how many sub projects we have and this
-is pretty much reflected in the file system (this) tree structure or root structure if you like.
+is pretty much reflected in the file system (this) tree structure or root structure
+if you like.
 
 Now we can also have projects with dependencies on one another.
 So say for example Project-C here which is a sub project of the Root-Project and it can
@@ -3392,4 +3393,25 @@ So is has its own build.gradle file, but at the same time where we have commonal
 We can refactor common build configuration up into the root project.
 So it can be shared with all the sub projects.
 
---- 3:45 ---
+As I mentioned in the previous tutorial as far as gradle concerned, there's no limit
+to the number of sub projects your project can have.
+
+So for example, our "plusplus" project could also have a sub project of his own and
+that sub project would live in the folder within the "plusplus" folder itself.
+But in this course I'm just going to stick to having one level of sub projects.
+So we've got our root project "allAboutNumbers" and that has three sub projects.
+
+You can notice that all our projects include the root project have an entry in the
+gradle task list.
+So we've got all "allAboutNumbers" project and we've got the build lifecycle tasks
+available for that.
+So how does that work ?
+Well let's expand out the build lifecycle and run the clean task and we'll have a look.
+Now when I run the clean task, it doesn't just perform the clean task for itself,
+it also performs the clean task for the three sub project.
+Å`Å`ó™Å`Å`
+Now the same is true if we perform the actual build task lifecycle as well and we can
+do that by right clicking on the build task and running that but we're going to do this
+on the top level root project the "allAboutNumbers".
+
+--- 5:05 ---
