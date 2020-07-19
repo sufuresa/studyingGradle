@@ -3414,4 +3414,18 @@ Now the same is true if we perform the actual build task lifecycle as well and w
 do that by right clicking on the build task and running that but we're going to do this
 on the top level root project the "allAboutNumbers".
 
---- 5:05 ---
+Now when this runs, you can see from the output here that gradle has caluculated a build
+path that incorporates(ëgÇ›çûÇﬁ) all three sub projects.
+So everything gets build.
+And in fact it's more than that.
+It's all the build tasks for every sub project.
+They also noticed that some of the task (get leaved ?).
+This follows a build plan that gradle calculate before actually runs the build.
+And the reason for this is that some code may be shared.
+We may have dependencies set up between our projects and I'll look at that a little
+later on.
+Now after the build is complete, I always like to perform a refresh gradle project.
+And this ensures that the project files and Eclipse are in sync with those on the 
+file system.
+
+--- 5:51 ---
