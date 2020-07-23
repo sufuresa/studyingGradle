@@ -3428,4 +3428,30 @@ Now after the build is complete, I always like to perform a refresh gradle proje
 And this ensures that the project files and Eclipse are in sync with those on the 
 file system.
 
---- 5:51 ---
+～略～　pickerNumberApplication1　の説明
+　　　　→5から10のランダムな数字を出力するだけのstandale型。
+
+Now the "plusplus" project is a little bit different.
+It also has an App.class with a main method in it, but here it has a dependency on the
+"randomNumberGen1" project which is a library.
+And it also has a dependency on the Apache commons math library directly.
+So it's actually using the "commons-math3-3-2" library and it's also using the
+"randomNumberGen1" library which is one of our project.
+So we've got into project dependency there and I'll be looing at how to set that up
+later on.
+But again we can right click on this main method and do "Run as Java Application"
+and you'll see two random numbers output.
+And the reason for this becomes a little bit clear lator on in the next tutorial.
+
+OK, so the "randomNumberGen1" sub project, unlike the others, doesn't have a main method
+in it.
+In other words it's not an application in its own right.
+It's actually a library, just a collection of Java Classes.
+So the (id?) here is to create a reusable component that generates or provide the
+set of API so we can generate random numbers.
+And as we see in the "plusplus" project that has dependency on this project,
+as it uses it, as a way to generate random numbers.
+
+～initial version project のインポート～
+
+
