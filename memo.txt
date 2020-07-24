@@ -3454,4 +3454,13 @@ as it uses it, as a way to generate random numbers.
 
 ～initial version project のインポート～
 
+<<< 45. Setting-Up our Multi-Project Build >>>
+There's one file you'll find in the root project of a muiti project build that doesn't exsist
+in any of the sub projects, and that's the setting.gradle file and that's what I'm going to
+start off looking at in this tutorial.
+The setting.gradle file is optional in single project build but a multi project build,
+it's mandatory.
+And there are a number of reasons why that is.
+--- 0:30 ---
+
 
