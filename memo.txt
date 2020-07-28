@@ -3461,6 +3461,37 @@ start off looking at in this tutorial.
 The setting.gradle file is optional in single project build but a multi project build,
 it's mandatory.
 And there are a number of reasons why that is.
---- 0:30 ---
+The main reason being is that the settings.gradle file is required to configure the
+instantiation of all the project objects for the sub projects below it.
+And that's why it's not required in a single project build because there's only one project
+and that's instantiated using the build.gradle file.
+But in a multi project build we need an overriding file that configures all the sub projects
+and the settings.gradle file is the file does that.
+Now there's also a one to one mapping or correspondence(ëŒâûÅAí êM) between the
+setting instance and their settings.gradle file.
+So before gradle assembles the projects for a build, it creates a settings instance
+and execute the settings file against it.
+The setting.gradle file also allows us to set up some properties.
 
+For example here I'm gonna set the name on the root project
 
+---settings.gradle
+rootProject.name='allAboutNumbers-initial'
+---
+
+So one of the purposes of the settings that gradle file and the settings object is to allow
+us to declare the projects which are to be included in the build.
+
+Now you adds a project to the build using the include method and we provide the
+include method a comma seperated list of string of all the sub projects we wish to include.
+So for example ...
+
+---settings.gradle
+include 'pickerNumberApplication1-initial','plusplus-initial','randomNumberGen1-initial'
+
+rootProject.name='allAboutNumbers-initial'
+---
+
+.. that basically tells gradle all these all the sub projects to include in our build.
+
+-- 2:22 --
