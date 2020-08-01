@@ -3493,5 +3493,60 @@ rootProject.name='allAboutNumbers-initial'
 ---
 
 .. that basically tells gradle all these all the sub projects to include in our build.
+So how do we go about configuring the sub projects within the group project ?
+Well in the root project, we can open up the build.gradle file and we can use the 
+"subprojects" block.
+The "subprojects" takes in a clusure, and this closure gets applied to each of the project
+objects of our sub projects.
+So in effect, what we provide here, or get applied to each of the sub projects for us
+and this is a great way of reusing code and configuration code.
 
--- 2:22 --
+Now one of our sub projects require Java Plugin so we can apply that plugin using the 
+method "apply", and then "plugin:" and the string 'java'
+
+---build.gradle
+subprojects {
+	apply plugin: 'java'
+}
+---
+
+It's little bit different to what we do on a single project.
+So the syntax here we're actually using the apply method.
+Now the everything is I'm going to set the "group" which is the "group" property on the
+project.
+So each of our sub project Project object will have the group property set and the same
+also goes for the version.
+I'm going to be setting that as well.
+
+---build.gradle
+subprojects {
+	apply plugin: 'java'
+	group = 'com.denofprograming.com'
+	version = '0.0.1-SNAPSHOT'
+}
+---
+
+So this is pretty much like saying to each of the project objects in our build,
+set the group property.
+
+Now I'm also going to set the property of source compatibility because I want each of
+my sub projects to have a source compatibility of Java 1.8 and also a target
+compatibility 1.8 .
+If you remember back to our previous tutorials we set up a repository for our
+repositories and I used the method of maven central.
+Well here too I'm going to be setting that up.
+
+---build.gradle
+subprojects {
+	apply plugin: 'java'
+	group = 'com.denofprograming.com'
+	version = '0.0.1-SNAPSHOT'
+	sourcecompatibility = 1.8
+	targetcompatibility = 1.8
+}
+---
+
+So each of our sub projects inherits this.
+
+--- 3:59 ---
+
