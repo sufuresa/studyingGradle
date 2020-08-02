@@ -3552,6 +3552,29 @@ subprojects {
 ---
 
 So each of our sub projects inherits this.
+So just to review, we've added some configuration to our settings.gradle file,
+we've included in that a whole list of sub projects.
+We've also changed the project group name.
+And we have also set the build.gradle file in our root project with some configuration
+for the sub projects.
 
---- 3:59 ---
+But when we go over to the gradle tasks tab, you'll notice here when we open up the
+projects, there are actually any tasks.
+To get this to refresh, the only way I can find at the moment ,
+( using the build ship plugin. This may change in future versions)
+is to actually remove the projects from the package explorer and readd them.
+
+Now the way to do that is really just to select all the projects and delete them from
+the package explorer.
+Don't delete from the hard disk, just delete from the package explorer and then go about
+reimport them.
+And then once we've reimported them, everything gets reconfigured and when we go to the
+gradle task tab, we should find then the Java Plugin task have been added to the task
+for each of the projects.
+We can see we now have the build folder and within that we also have the build lifecycle
+task.
+We've got clean, and also build.
+Let's just go ahead and do a clean.
+
+--- 5:16 ---
 
