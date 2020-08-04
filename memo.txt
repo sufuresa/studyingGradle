@@ -3576,5 +3576,18 @@ task.
 We've got clean, and also build.
 Let's just go ahead and do a clean.
 
---- 5:16 ---
+And we can also do the same with the build but we see we've got a red X come up there.
+So what the problems are ?
+Basically it's failed on the import.
+And this is really because we have a whole bunch of dependencies for our projects.
+
+If you remember we have our "plusplus-initial" project has a dependency on the
+"randomNumberGen1-initial" project and also the other two projects have a dependency on the
+Apache-math-common library, and also Junit and some others.
+So that's something I will start looking at in the next tutorial how do we add our
+dependencies in .
+
+<<< 46. Setting-Up our Project Dependencies >>>
+
+
 
