@@ -3588,6 +3588,60 @@ So that's something I will start looking at in the next tutorial how do we add o
 dependencies in .
 
 <<< 46. Setting-Up our Project Dependencies >>>
+In the last tutorial, we looked at using the subprojects method for adding common configuration
+for our sub projects.
+Well in this tutorial, I'm going to look at another method called "project".
+Gradle allows us to access any projects of a multi project build from any build script.
 
+Now the project API itself provides a method called "Project" which takes a path as an argument
+and returns the projct object for the path we provide.
 
+Now the capability to configure a project build from any build script is called
+"Cross project configuration".
+And gradle implement this file what's called configuration injection.
+We can head over to the gradle documentation to look at the "project" api and
+we can scroll down to the actual project method and you can see here, we pass in a path
+which just happens to be a string and it looks at the project object using the path and
+then returns the object and that's what we're doing here.
+
+https://docs.gradle.org/current/javadoc/org/gradle/api/Project.html
+
+Basically it's equivalent to saying Project.project method with open and close brackets
+So back in our build script we need to provide a path.
+Now the first character, the path needs to be a : and then we can include the actual
+project name we want to look up.
+
+And that's what we mean by the path.
+Now in this multi project build have three sub projects.
+So I'm going to add a further two calls to the project method because I want to provide
+the configuration for each of these projects.
+
+---build.gradle
+subprojects {
+	apply plugin: 'java'
+	group = 'com.denofprograming.com'
+	version = '0.0.1-SNAPSHOT'
+	sourcecompatibility = 1.8
+	targetcompatibility = 1.8
+	
+	repositories {
+		mavenCentral()
+	}
+	
+	project(':pickerNumberApplication1-initial'){
+	}
+	project(':plusplus-initial'){
+	}
+	project(':randomNumberGen1-initial'){
+	}
+
+}
+---
+
+So now I can actually configure each of the sub projects individually.
+OK, so the first thing I want to do for our individual projects is to remove some of
+these error messages, we can see them with the red boxes with a cross in.
+Now we're getting a lot of these error messages because our projects have various
+dependencies on other projects whether within our project  itself or from third party
+jar files.
 
